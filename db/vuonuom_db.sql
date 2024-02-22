@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 21, 2024 lúc 10:28 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Feb 22, 2024 at 04:54 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `vuonuom_db`
+-- Database: `vuonuom_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `businesses`
+-- Table structure for table `businesses`
 --
 
 CREATE TABLE `businesses` (
@@ -35,10 +35,17 @@ CREATE TABLE `businesses` (
   `userid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `businesses`
+--
+
+INSERT INTO `businesses` (`businessid`, `businessname`, `image`, `premiumstatus`, `userid`) VALUES
+(1, 'TVU', 'upload/icon.jpg', 0, 5);
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `businesspackages`
+-- Table structure for table `businesspackages`
 --
 
 CREATE TABLE `businesspackages` (
@@ -52,21 +59,34 @@ CREATE TABLE `businesspackages` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `packages`
+-- Table structure for table `packages`
 --
 
 CREATE TABLE `packages` (
   `packageid` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` bigint(20) NOT NULL,
-  `packagedate` varchar(255) NOT NULL,
+  `packagedate` int(255) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `packages`
+--
+
+INSERT INTO `packages` (`packageid`, `name`, `price`, `packagedate`, `description`) VALUES
+(1, 'Gói thường', 5000000, 1, 'lamdasmds'),
+(3, 'Gói bạc', 6000000, 6, 'lamdasmds'),
+(4, 'Gói Vàng', 7000000, 12, 'lamdasmds'),
+(5, 'Gói Kim cương', 7000000, 12, 'lamdasmds'),
+(14, 'Gói VIP', 10000000, 1, 'dkansd'),
+(20, 'ads', 1, 1, 'qdasd'),
+(21, 'adsda', 1123123, 3, '<p>sdaasdasdad</p><figure class=\"media\"><oembed url=\"https://www.youtube.com/watch?v=ukHK1GVyr0I&amp;list=RDuf8pPNXMO-I&amp;index=7\"></oembed></figure>');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -80,26 +100,27 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`userid`, `email`, `password`, `fullname`, `address`, `phone`, `role`) VALUES
 (1, 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', 2),
 (2, 'user@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', 0),
-(3, 'business@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', 1);
+(3, 'business@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', 1),
+(5, 'tuna@gmail.com', '4297f44b13955235245b2497399d7a93', 'Kim Tuna', '123, đường quang trung , Hà nội', '0922347678', 1);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `businesses`
+-- Indexes for table `businesses`
 --
 ALTER TABLE `businesses`
   ADD PRIMARY KEY (`businessid`);
 
 --
--- Chỉ mục cho bảng `businesspackages`
+-- Indexes for table `businesspackages`
 --
 ALTER TABLE `businesspackages`
   ADD PRIMARY KEY (`businesspackageid`),
@@ -107,52 +128,52 @@ ALTER TABLE `businesspackages`
   ADD KEY `packageid` (`packageid`);
 
 --
--- Chỉ mục cho bảng `packages`
+-- Indexes for table `packages`
 --
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`packageid`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userid`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `businesses`
+-- AUTO_INCREMENT for table `businesses`
 --
 ALTER TABLE `businesses`
-  MODIFY `businessid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `businessid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `businesspackages`
+-- AUTO_INCREMENT for table `businesspackages`
 --
 ALTER TABLE `businesspackages`
   MODIFY `businesspackageid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `packages`
+-- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `packageid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `packageid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `businesspackages`
+-- Constraints for table `businesspackages`
 --
 ALTER TABLE `businesspackages`
   ADD CONSTRAINT `businesspackages_ibfk_1` FOREIGN KEY (`businessid`) REFERENCES `businesses` (`businessid`),

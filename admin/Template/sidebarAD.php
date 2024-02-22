@@ -17,9 +17,16 @@
                 </a>
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        <?php
+                        if ($_SESSION['admin']) {
+                        ?>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/ADlist.php">Danh sách doanh nghiệp</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/ADpackages.php">Quản lý gói dịch vụ</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
             </li>

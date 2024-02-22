@@ -84,10 +84,6 @@
                                     echo $_SESSION['admin'];
                                 } else if (isset($_SESSION['business'])) {
                                     echo $_SESSION['business'];
-                                } else if (isset($_SESSION['customer'])) {
-                                    header("Location: './index.php'");
-                                } else if (!$_SESSION['admin'] && $_SESSION['business'] && $_SESSION['customer']) {
-                                    header("Location: './login.php'");
                                 }
                                 ?>
                             </p>

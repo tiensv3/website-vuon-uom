@@ -1,7 +1,13 @@
 <?php
 session_start();
+if (!isset($_SESSION['admin'])) {
+    if (!isset($_SESSION['business'])) {
+        echo ("<script language=javascript>
+        window.location='../login.php';
+        </script> ");
+    }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +32,8 @@ session_start();
     <link rel="stylesheet" href="../admin/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../admin/assets/images/favicon.png" />
+    <!-- ckeditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
 </head>
 
 <body>

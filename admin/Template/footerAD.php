@@ -15,6 +15,17 @@
   <!-- Custom js for this page -->
   <script src="../admin/assets/js/dashboard.js"></script>
   <!-- End custom js for this page -->
+
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#description'))
+      .then(editor => {
+        console.log(editor);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  </script>
   </body>
 
   </html>
