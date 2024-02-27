@@ -18,12 +18,18 @@
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
                         <?php
-                        if ($_SESSION['admin']) {
+                        if (isset($_SESSION['admin'])) {
                         ?>
                             <li class="nav-item"> <a class="nav-link" href="/admin/ADlist.php">Danh sách doanh nghiệp</a></li>
                             <li class="nav-item"> <a class="nav-link" href="/admin/ADpackages.php">Quản lý gói dịch vụ</a></li>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
 
+                        <?php
+                        } elseif (isset($_SESSION['business'])) {
+                        ?>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/BScategory.php">Danh sách danh mục</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/BSproduct.php">Quản lý sản phẩm</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                         <?php
                         }
                         ?>

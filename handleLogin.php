@@ -17,6 +17,11 @@ if (isset($_POST['login'])) {
         } else if ($row['role'] == 1) {
             $_SESSION['business'] = $row['email'];
             $_SESSION['userid'] = $row['userid'];
+            $sql_business = "SELECT * FROM businesses WHERE userid = " . $row['userid'];
+            $result_business = $conn->query($sql_business);
+            if ($row1 = mysqli_fetch_array($result_business)) {
+                $_SESSION['businessid'] = $row1['businessid'];
+            }
             header('Location: ../admin/index.php');
         } else if ($row['role'] == 2) {
             $_SESSION['admin'] = $row['email'];
