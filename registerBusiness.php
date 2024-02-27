@@ -1,3 +1,7 @@
+<?php
+session_start();
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,28 +40,34 @@
                         <form class="pt-3" action="./handleRegister.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="" class="text-black">Họ và tên:</label>
-                                <input type="text" name="fullname" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Ví dụ: Nguyễn Văn A" required>
+                                <input type="text" name="fullname" class="form-control form-control-lg"
+                                    id="exampleInputUsername1" placeholder="Ví dụ: Nguyễn Văn A" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Email:</label>
-                                <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="example@gmail.com" required>
+                                <input type="email" name="email" class="form-control form-control-lg"
+                                    id="exampleInputEmail1" placeholder="example@gmail.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Mật khẩu:</label>
-                                <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="******" required>
+                                <input type="password" name="password" class="form-control form-control-lg"
+                                    id="exampleInputPassword1" placeholder="******" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Địa chỉ:</label>
-                                <input type="text" name="address" id="" class="form-control form-control-lg " placeholder="Ví dụ: 123, đường quang trung, Quận 1 , HCM" required>
+                                <input type="text" name="address" id="" class="form-control form-control-lg "
+                                    placeholder="Ví dụ: 123, đường quang trung, Quận 1 , HCM" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Số điện thoại:</label>
-                                <input type="number" name="phone" id="" class="form-control form-control-lg " placeholder="Ví dụ: 0911096648" required>
+                                <input type="number" name="phone" id="" class="form-control form-control-lg "
+                                    placeholder="Ví dụ: 0911096648" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="text-black">Tên thương hiệu:</label>
-                                <input type="text" name="businessname" id="" class="form-control form-control-lg " placeholder="Ví dụ: abc" required>
+                                <input type="text" name="businessname" id="" class="form-control form-control-lg "
+                                    placeholder="Ví dụ: abc" required>
                             </div>
 
                             <div class="form-group">
@@ -67,16 +77,20 @@
                             <div class="mb-4">
                                 <div class="form-check">
                                     <label class="form-check-label text-muted">
-                                        <input type="checkbox" class="form-check-input" required> Tôi đồng ý với chính sách và dịch vụ </label>
+                                        <input type="checkbox" class="form-check-input" required> Tôi đồng ý với chính
+                                        sách và dịch vụ </label>
                                 </div>
 
                             </div>
                             <div class="mt-3">
-                                <input type="submit" name="submitBusiness" value="Đăng ký" class="btn btn-success w-100">
+                                <input type="submit" name="submitBusiness" value="Đăng ký"
+                                    class="btn btn-success w-100">
                             </div>
 
 
                         </form>
+                        <div class="text-center mt-4 font-weight-light"> Đã có tài khoản? <a href="./login.php"
+                                class="text-primary">Đăng nhập</a></div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <?php
 include("../connect.php");
-
+include("./Template/loadingpage.php");
 
 if (isset($_POST['addPackage'])) {
 
@@ -15,16 +15,18 @@ if (isset($_POST['addPackage'])) {
     $stmt->execute();
     $result = $stmt->get_result();
     if ($stmt->affected_rows > 0) {
-        // Câu lệnh đã thực thi thành công, chuyển hướng trang
-        echo "<script language='JavaScript'> 
-            alert('Thêm thông tin gói thành công');
-            </script>";
+        // echo "<script language='JavaScript'> 
+        //     alert('Thêm thông tin gói thành công');
+        //     </script>";
         echo "<script language='JavaScript'> 
             window.location.href = './ADpackages.php';
             </script>";
     } else {
-        // Câu lệnh không thực thi thành công, in ra lỗi
-        echo "Lỗi: " . $stmt->error;
+        header("Location: ../../404.html");
+        exit;
+        // echo "<script language='JavaScript'> 
+        //     window.location.href = './ADpackages.php';
+        //     </script>";
     }
 } else if (isset($_POST['editPackage'])) {
     $id = $_POST['packageid'];
@@ -40,16 +42,19 @@ if (isset($_POST['addPackage'])) {
     $result = $stmt->get_result();
 
     if ($stmt->affected_rows > 0) {
-        // Câu lệnh đã thực thi thành công, chuyển hướng trang
-        echo "<script language='JavaScript'> 
-            alert('sửa thông tin gói thành công');
-            </script>";
+
+        // echo "<script language='JavaScript'> 
+        //     alert('sửa thông tin gói thành công');
+        //     </script>";
         echo "<script language='JavaScript'> 
             window.location.href = 'ADpackages.php';
             </script>";
     } else {
-        // Câu lệnh không thực thi thành công, in ra lỗi
-        echo "Lỗi: " . $stmt->error;
+        header("Location: ../../404.html");
+        exit;
+        // echo "<script language='JavaScript'> 
+        //     window.location.href = 'ADpackages.php';
+        //     </script>";
     }
 } else if (isset($_GET['action']) == 'xoa') {
     $id = $_GET['id'];
@@ -61,16 +66,15 @@ if (isset($_POST['addPackage'])) {
     $result = $stmt->get_result();
 
     if ($stmt->affected_rows > 0) {
-        // Câu lệnh đã thực thi thành công, chuyển hướng trang
-        echo "<script language='JavaScript'> 
-            alert('Xóa thông tin gói thành công');
-            </script>";
+        // echo "<script language='JavaScript'> 
+        //     alert('Xóa thông tin gói thành công');
+        //     </script>";
         echo "<script language='JavaScript'> 
             window.location.href = 'ADpackages.php';
             </script>";
     } else {
-        // Câu lệnh không thực thi thành công, in ra lỗi
-        echo "Lỗi: " . $stmt->error;
+        header("Location: ../../404.html");
+        exit;
     }
 }
 $conn->close();

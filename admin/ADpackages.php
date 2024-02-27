@@ -52,7 +52,7 @@ include("./Template/sidebarAD.php");
                             </div>
                         </div>
                     </form>
-
+                    <a href="../../404.html">404</a>
                 <?php
                 }
             } else {
@@ -127,7 +127,6 @@ include("./Template/sidebarAD.php");
                             </td>
                         </tr>
                     <?php
-                    $conn->close();
                     }
                     ?>
                 </tbody>

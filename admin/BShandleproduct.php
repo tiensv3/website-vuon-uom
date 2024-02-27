@@ -44,19 +44,21 @@ if (isset($_POST['addProduct'])) {
         }
     }
     if ($stmt->affected_rows > 0) {
-        echo "<script language='JavaScript'> 
-            alert('Thêm thông tin sản phẩm thành công');
-            </script>";
+        // echo "<script language='JavaScript'> 
+        //     alert('Thêm thông tin sản phẩm thành công');
+        //     </script>";
         echo "<script language='JavaScript'> 
             window.location.href = './BSproduct.php';
             </script>";
     } else {
-        echo "<script language='JavaScript'> 
-            alert('Lỗi!');
-            </script>";
-        echo "<script language='JavaScript'> 
-            window.location.href = './BSproduct.php';
-            </script>";
+        // echo "<script language='JavaScript'> 
+        //     alert('Lỗi!');
+        //     </script>";
+        // echo "<script language='JavaScript'> 
+        //     window.location.href = './BSproduct.php';
+        //     </script>";
+        header("Location: ../../404.html");
+        exit;
     }
     $conn->close();
 } elseif (isset($_GET['action']) == "xoasp") {
@@ -70,19 +72,21 @@ if (isset($_POST['addProduct'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo "<script language='JavaScript'> 
-                alert('Xóa thông tin sản phẩm thành công');
-                </script>";
+        // echo "<script language='JavaScript'> 
+        //         alert('Xóa thông tin sản phẩm thành công');
+        //         </script>";
         echo "<script language='JavaScript'> 
                 window.location.href = ' BSproduct.php';
                 </script>";
     } else {
-        echo "<script language='JavaScript'> 
-                alert('Không có sản phẩm nào được xóa');
-                </script>";
-        echo "<script language='JavaScript'> 
-                window.location.href = ' BSproduct.php';
-                </script>";
+        // echo "<script language='JavaScript'> 
+        //         alert('Không có sản phẩm nào được xóa');
+        //         </script>";
+        // echo "<script language='JavaScript'> 
+        //         window.location.href = ' BSproduct.php';
+        //         </script>";
+        header("Location: ../../404.html");
+        exit;
     }
     $conn->close();
 }

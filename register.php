@@ -1,3 +1,7 @@
+<?php
+session_start();
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,23 +41,28 @@
                         <form class="pt-3" action="./handleRegister.php" method="POST">
                             <div class="form-group">
                                 <label for="" class="text-black">Họ và tên:</label>
-                                <input type="text" name="fullname" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Ví dụ: Nguyễn Văn A" required>
+                                <input type="text" name="fullname" class="form-control form-control-lg"
+                                    id="exampleInputUsername1" placeholder="Ví dụ: Nguyễn Văn A" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Email:</label>
-                                <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="example@gmail.com" required>
+                                <input type="email" name="email" class="form-control form-control-lg"
+                                    id="exampleInputEmail1" placeholder="example@gmail.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Mật khẩu:</label>
-                                <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="******" required>
+                                <input type="password" name="password" class="form-control form-control-lg"
+                                    id="exampleInputPassword1" placeholder="******" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Địa chỉ:</label>
-                                <input type="text" name="address" id="" class="form-control form-control-lg " placeholder="Ví dụ: 123, đường quang trung, Quận 1 , HCM" required>
+                                <input type="text" name="address" id="" class="form-control form-control-lg "
+                                    placeholder="Ví dụ: 123, đường quang trung, Quận 1 , HCM" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Số điện thoại:</label>
-                                <input type="number" name="phone" id="" class="form-control form-control-lg " placeholder="Ví dụ: 0911096648" required>
+                                <input type="number" name="phone" id="" class="form-control form-control-lg "
+                                    placeholder="Ví dụ: 0911096648" required>
                             </div>
                             <!-- <div class="mb-4">
                                 <div class="form-check">
@@ -66,11 +75,13 @@
                                 <input type="submit" name="submit" value="Đăng ký" class="btn btn-success w-100">
                             </div>
 
-                            <div class="text-center mt-4 font-weight-light"> Đã có tài khoản? <a href="./login.php" class="text-primary">Đăng nhập</a></div>
+                            <div class="text-center mt-4 font-weight-light"> Đã có tài khoản? <a href="./login.php"
+                                    class="text-primary">Đăng nhập</a></div>
                             <div class="row mt-3">
                                 <div class="col-2"></div>
                                 <div class="col-10">
-                                    <a href="./registerBusiness.php" class="btn btn-primary">Đăng ký tài khoản cho doanh nghiệp</a>
+                                    <a href="./registerBusiness.php" class="btn btn-primary">Đăng ký tài khoản cho doanh
+                                        nghiệp</a>
                                 </div>
                             </div>
                         </form>
