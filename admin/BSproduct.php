@@ -12,7 +12,7 @@ include("./Template/sidebarAD.php");
     <div class="row">
         <div class="col-md-4">
             <?php
-            if (isset($_GET["action"]) == "sua") {
+            if (isset($_GET["action"]) && $_GET["action"] == "sua") {
             ?>
             <h3 class="text-uppercase text-center mt-5 mb-3">Sửa sản phẩm</h3>
             <form action="./BShandleproduct.php" method="post" enctype="multipart/form-data">
@@ -26,8 +26,7 @@ include("./Template/sidebarAD.php");
                             $selected_category = mysqli_fetch_array($result_select_cate);
 
                             $sql = "SELECT categoryid, categoryname FROM categories
-                    WHERE businessid = '" . $_SESSION['businessid'] . "' AND
-                    categorystatus = 1 ORDER BY categoryid DESC";
+                    WHERE businessid = '" . $_SESSION['businessid'] . "' ORDER BY categoryid DESC";
                             $result = $conn->query($sql);
 
                             while ($row = mysqli_fetch_array($result)) {
@@ -52,6 +51,7 @@ include("./Template/sidebarAD.php");
                     $result_edit_product = $conn->query($sql_edit_product);
                     if ($row_edit_product = mysqli_fetch_array($result_edit_product)) {
                     ?>
+                <input type="hidden" name="idProduct" value="<?php echo $id ?>">
                 <div class="form-group">
                     <label for="" class="text-black font-italic">Tên sản phẩm:</label>
                     <input type="text" name="nameProduct" id="" value="<?php echo $row_edit_product['productname'] ?>"
@@ -59,35 +59,94 @@ include("./Template/sidebarAD.php");
                 </div>
 
                 <div class="form-group">
-                    <label for="" class="text-black font-italic">Giá sản phẩm:</label>
+                    <label for="" class="text-black font-italic">Giá gốc:</label>
                     <input type="text" name="priceProduct" id="" value="<?php echo $row_edit_product['price'] ?>"
                         class="form-control form-control-lg" required>
                 </div>
 
                 <div class="form-group">
+                    <label for="" class="text-black font-italic">Giá bán:</label>
+                    <input type="text" name="saleProduct" id="" class="form-control form-control-lg"
+                        value="<?php echo $row_edit_product['sale'] ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Số lượng:</label>
+                    <input type="text" name="quantityProduct" id="" value="<?php echo $row_edit_product['quantity'] ?>"
+                        class="form-control form-control-lg" required>
+                </div>
+
+                <div class=" form-group">
+                    <label for="" class="text-black font-italic">Bán chạy:</label>
+                    <select class="form-control" id="" name="trendingProduct">
+                        <?php
+                                if ($row_edit_product['trending'] == 1) {
+
+                                ?>
+                        <option value="0">Không bán chạy</option>
+                        <option value="1" selected>Bán chạy</option>
+                        <?php
+                                } else {
+                                ?>
+                        <option value="0" selected>Không bán chạy</option>
+                        <option value="1">Bán chạy</option>
+
+                        <?php
+                                }
+                                ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Trạng thái:</label>
+                    <select class="form-control" id="" name="statusProduct">
+                        <?php
+                                if ($row_edit_product['productstatus'] == 1) {
+
+                                ?>
+                        <option value="0">Không hiển thị</option>
+                        <option value="1" selected>Hiển thị</option>
+                        <?php
+                                } else {
+                                ?>
+                        <option value="0" selected>Không hiển thị</option>
+                        <option value="1">Hiển thị</option>
+
+                        <?php
+                                }
+                                ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="" class="text-black font-italic">Ảnh thu nhỏ:</label>
-                    <input type="file" name="thumbnailProduct" id="" class="form-control form-control-lg" required>
+                    <input type="file" name="thumbnailProduct" id="" accept="image/*"
+                        class="form-control form-control-lg">
                     <img src="<?php echo $row_edit_product['thumbnail'] ?>" width="200" alt="Lỗi">
                 </div>
 
                 <div class="form-group">
                     <label for="" class="text-black font-italic">Hình ảnh sản phẩm:</label>
-                    <input type="file" name="imgProduct[]" multiple accept="image/*" id=""
-                        class="form-control form-control-lg" required>
+                    <input type="file" name="imageProduct[]" multiple accept="image/*" id=""
+                        class="form-control form-control-lg" alt="Lỗi">
                     <?php
                             $sql_product_images = "SELECT * FROM productimages where productid = $id";
                             $result_product_images = $conn->query($sql_product_images);
                             while ($row_product_images = mysqli_fetch_array($result_product_images)) {
                             ?>
-                    <img src="<?php echo $row_product_images['imageurl'] ?>" alt="" width="80">
+                    <img src="<?php echo $row_product_images['imageurl'] ?>" alt="Lỗi" width="80">
                     <a href="./BShandleimg.php?action=xoaimg&productimgid=<?php echo $row_product_images['productimageid'] ?>&productid=<?php echo $row_edit_product['productid'] ?>"
-                        class="btn btn-danger">Xóa</a>
+                        class="btn btn-danger mr-3 mt-2 mb-2">Xóa</a>
                     <?php
                             }
                             ?>
                 </div>
 
 
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Mô tả giới thiệu:</label>
+                    <textarea cols="30" name="shortdescProduct" id="" class="form-control rounded"></textarea>
+                </div>
 
                 <div class="form-group">
                     <label for="" class="text-black font-italic">Mô tả:</label>
@@ -99,7 +158,7 @@ include("./Template/sidebarAD.php");
                         <div class="col-4">
                         </div>
                         <div class="col-4">
-                            <input type="submit" name="addProduct" value="Sửa" class="btn btn-success w-100">
+                            <input type="submit" name="editProduct" value="Sửa" class="btn btn-success w-100">
                         </div>
                     </div>
                 </div>
@@ -142,8 +201,34 @@ include("./Template/sidebarAD.php");
                 </div>
 
                 <div class="form-group">
-                    <label for="" class="text-black font-italic">Giá sản phẩm:</label>
+                    <label for="" class="text-black font-italic">Giá gốc:</label>
                     <input type="text" name="priceProduct" id="" class="form-control form-control-lg" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Giá bán:</label>
+                    <input type="text" name="saleProduct" id="" class="form-control form-control-lg" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Số lượng:</label>
+                    <input type="text" name="quantityProduct" id="" class="form-control form-control-lg" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Bán chạy:</label>
+                    <select class="form-control" id="" name="trendingProduct">
+                        <option value="1">Bán chạy</option>
+                        <option value="0">Không bán chạy</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Trạng thái:</label>
+                    <select class="form-control" id="" name="statusProduct">
+                        <option value="1">Hiển thị</option>
+                        <option value="0">Không hiển thị</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -155,6 +240,11 @@ include("./Template/sidebarAD.php");
                     <label for="" class="text-black font-italic">Hình ảnh sản phẩm:</label>
                     <input type="file" name="imgProduct[]" multiple accept="image/*" id=""
                         class="form-control form-control-lg" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="text-black font-italic">Mô tả giới thiệu:</label>
+                    <textarea cols="30" name="shortdescProduct" id="" class="form-control rounded"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -219,7 +309,7 @@ include("./Template/sidebarAD.php");
                         <td>
                             <a href="./BSproduct.php?action=sua&id=<?php echo $row['productid'] ?>"
                                 class="btn btn-warning">Sửa</a>
-                            <a href="./BShandleproduct.php?action=xoasp&id=<?php echo $row['productid'] ?>"
+                            <a href="./BShandleproduct.php?action=xoa&id=<?php echo $row['productid'] ?>"
                                 class="btn btn-danger">Xóa</a>
                         </td>
                     </tr>
