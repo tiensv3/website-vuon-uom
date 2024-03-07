@@ -17,22 +17,23 @@
   <!-- End custom js for this page -->
 
   <script>
-ClassicEditor
-    .create(document.querySelector('#description'))
-    .then(editor => {
+    ClassicEditor
+      .create(document.querySelector('#description'))
+      .then(editor => {
         console.log(editor);
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error(error);
-    });
+      });
   </script>
   <script>
-function confirmDelete() {
-    return confirm(
+    function confirmDelete() {
+      return confirm(
         'Bạn có chắc muốn xóa không? Điều này có thể dẫn đến các dữ liệu con thuộc dữ liệu bạn muốn xóa. Hãy cân nhắc!'
-    );
-}
+      );
+    }
   </script>
+
 
   </body>
 

@@ -18,29 +18,15 @@ if (isset($_GET["action"]) == "xoaimg" && isset($_GET["productimgid"])) {
         $sql_delete_product_img = "DELETE FROM productimages where productimageid = $productimageid";
         $result = $conn->query($sql_delete_product_img);
         if ($result) {
-            //         echo "<script language='JavaScript'>
-            //     alert('Xóa hình ảnh sản phẩm thành công');
-            // </script>";
+            $_SESSION["message"] = "<span class = 'text-warning'>Đã xóa ảnh!</span>";
             echo "<script language='JavaScript'>
     window.location.href = 'BSproduct.php?action=sua&id=$productid';
 </script>";
         } else {
-            //         echo "<script language='JavaScript'>
-            //     alert('Không có hình ảnh nào được xóa');
-            // </script>";
-            //         echo "<script language='JavaScript'>
-            //     window.location.href = 'BSproduct.php?action=sua&id=$productid';
-            // </script>";
             header("Location: ../../404.html");
             exit;
         }
     } else {
-        //     echo "<script language='JavaScript'>
-        //     alert('Không có hình ảnh nào được xóa');
-        // </script>";
-        //     echo "<script language='JavaScript'>
-        //     window.location.href = 'BSproduct.php?action=sua&id=$productid';
-        // </script>";
         header("Location: ../../404.html");
         exit;
     }

@@ -1,11 +1,9 @@
 <?php
 session_start();
 if (!isset($_SESSION['admin'])) {
-    if (!isset($_SESSION['business'])) {
-        echo ("<script language=javascript>
+    echo ("<script language=javascript>
         window.location='../login.php';
         </script> ");
-    }
 }
 ?>
 

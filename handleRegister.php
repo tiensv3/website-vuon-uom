@@ -9,21 +9,35 @@ if (isset($_POST['submit'])) {
     $password = md5($_POST['password']);
     $address = $_POST['address'];
     $phone = $_POST['phone'];
-    $role = 0;
 
-    $sql_insert_register = "INSERT INTO users (email,password,fullname,address,phone,role) VALUES ('$email','$password','$fullname','$address','$phone','$role')";
-    $query_result_insert = mysqli_query($conn, $sql_insert_register);
+    $sql_check_email = "SELECT COUNT(email) as CE FROM users where email = '$email'";
+    $result_check_email = $conn->query($sql_check_email);
 
-    if ($query_result_insert) {
-        echo "<script  language=javascript>
-            alert('Đăng ký thành công!');
-            window.location = './login.php';
+    while ($row = $result_check_email->fetch_assoc()) {
+        if ($row['CE'] > 0) {
+            echo "<script  language=javascript>
+            alert('Email đã tồn tại');
+            window.location = './register.php';
         </script>";
+            exit();
+        }
     }
-}
-?>
-<?php //đăng ký cho business
-if (isset($_POST['submitBusiness'])) {
+
+    $random_byte = random_bytes(16);
+    $token = bin2hex($random_byte);
+
+    $sql_insert_register = "INSERT INTO users (email,password,fullname,address,phone, token) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql_insert_register);
+    $stmt->bind_param("ssssss", $email, $password, $fullname, $address, $phone, $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($stmt->affected_rows > 0) {
+        $_SESSION['token'] = $token;
+        $_SESSION['email'] = $email;
+        include("./sendmail.php");
+    }
+} elseif (isset($_POST['submitBusiness'])) {
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $password = md5($_POST['password']);
@@ -31,26 +45,52 @@ if (isset($_POST['submitBusiness'])) {
     $phone = $_POST['phone'];
     $role = 1;
 
-    $sql_insert_before = "INSERT INTO users (email,password,fullname, address,phone,role) VALUES ('$email','$password','$fullname','$address','$phone','$role')";
-    if ($conn->query($sql_insert_before) === TRUE) {
+    $sql_check_email = "SELECT COUNT(email) as CE FROM users where email = '$email'";
+    $result_check_email = $conn->query($sql_check_email);
+
+    while ($row = $result_check_email->fetch_assoc()) {
+        if ($row['CE'] > 0) {
+            echo "<script  language=javascript>
+            alert('Email đã tồn tại');
+            window.location = './registerBusiness.php';
+        </script>";
+            exit();
+        }
+    }
+
+    $random_byte = random_bytes(16);
+    $token = bin2hex($random_byte);
+
+    $sql_insert_before = "INSERT INTO users (email,password,fullname, address,phone,role, token) VALUES (?,?,?,?,?,?,?)";
+    $stmt = $conn->prepare($sql_insert_before);
+    $stmt->bind_param("sssssis", $email, $password, $fullname, $address, $phone, $role, $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($stmt->affected_rows > 0) {
 
         $userid = $conn->insert_id;
         $businessname = $_POST['businessname'];
-        $premiumstatus = 0;
-
         // upload file 
-        $duongdan = "upload/";
-        $duongdan = $duongdan . basename($_FILES["logo"]["name"]);
-        $file_tam = $_FILES["logo"]["tmp_name"];
-        move_uploaded_file($file_tam, $duongdan);
+        $uniqueid = uniqid();
+        $imageDirectory = "upload/";
+        $currentDateTime = date("YmdHis");
+        $newFileName = $uniqueid . "_" . $currentDateTime . "_" . basename($_FILES["logo"]["name"]);
+        $newFilePath = $imageDirectory . $newFileName;
+        $tempFilePath = $_FILES["logo"]["tmp_name"];
+        move_uploaded_file($tempFilePath, $newFilePath);
 
-        $sql_insert_after = "INSERT INTO businesses (businessname,image,premiumstatus,userid) VALUES ('$businessname' , '$duongdan' ,'$premiumstatus', '$userid')";
+        $sql_insert_after = "INSERT INTO businesses (businessname,image,userid) VALUES (?,?,?)";
+        $stmt = $conn->prepare($sql_insert_after);
+        $stmt->bind_param("ssi", $businessname, $newFilePath, $userid);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($conn->query($sql_insert_after) === TRUE) {
-            echo "<script  language=javascript>
-            alert('Đăng ký tài khoản doanh nghiệp thành công!');
-            window.location = './login.php';
-        </script>";
+
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['token'] = $token;
+            $_SESSION['email'] = $email;
+            include("./sendmail.php");
         }
     }
 }

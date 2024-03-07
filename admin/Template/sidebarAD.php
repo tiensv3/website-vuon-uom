@@ -4,10 +4,23 @@
         <ul class="nav">
             <li class="nav-item nav-category">Main</li>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/index.php">
-                    <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
-                    <span class="menu-title">Trang chủ</span>
-                </a>
+                <?php
+                if (isset($_SESSION["admin"])) {
+                ?>
+                    <a class="nav-link" href="../admin/index.php">
+                        <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+                        <span class="menu-title">Trang chủ</span>
+                    </a>
+                <?php
+                } elseif (isset($_SESSION["business"])) {
+                ?>
+                    <a class="nav-link" href="../admin/BSindex.php">
+                        <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+                        <span class="menu-title">Trang chủ</span>
+                    </a>
+                <?php
+                }
+                ?>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -20,16 +33,20 @@
                         <?php
                         if (isset($_SESSION['admin'])) {
                         ?>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/ADlist.php">Danh sách doanh nghiệp</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/ADpackages.php">Quản lý gói dịch vụ</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/ADlist.php">Danh sách doanh nghiệp</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/ADpackages.php">Quản lý gói dịch vụ</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/ADregisterpackages.php">Danh sách
+                                    đăng ký gói</a></li>
 
                         <?php
                         } elseif (isset($_SESSION['business'])) {
                         ?>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/BScategory.php">Danh sách danh mục</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/BScategory.php">Danh sách danh mục</a>
+                            </li>
                             <li class="nav-item"> <a class="nav-link" href="/admin/BSproduct.php">Quản lý sản phẩm</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="/admin/BSmypackage.php">Gói của tôi</a></li>
                         <?php
                         }
                         ?>
@@ -37,10 +54,23 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="pages/icons/mdi.html">
-                    <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                    <span class="menu-title">Icons</span>
-                </a>
+                <?php
+                if (isset($_SESSION['business'])) {
+                ?>
+                    <a class="nav-link" href="/admin/BSregisterpackages.php">
+                        <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                        <span class="menu-title">Gói dịch vụ</span>
+                    </a>
+                <?php
+                } elseif (isset($_SESSION['admin'])) {
+                ?>
+                    <a class="nav-link" href="/admin/ADregisterpackages.php">
+                        <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                        <span class="menu-title">Danh sách đăng ký gói</span>
+                    </a>
+                <?php
+                }
+                ?>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="pages/forms/basic_elements.html">
@@ -68,7 +98,8 @@
                 </a>
                 <div class="collapse" id="auth">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a>
+                        </li>
                         <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>

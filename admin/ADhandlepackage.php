@@ -8,16 +8,17 @@ if (isset($_POST['addPackage'])) {
     $pricePackage = $_POST['pricePackage'];
     $datePackage = $_POST['datePackage'];
     $descPackage = $_POST['descPackage'];
+    $numberofcategories = $_POST['numberofcategories'];
+    $numberofproducts = $_POST['numberofproducts'];
 
-    $sql_insert_package = "INSERT INTO packages (name, price, packagedate, description) VALUES (?,?,?,?)";
+    $sql_insert_package = "INSERT INTO packages (name, price, packagedate, numberofproducts, numberofcategories, description)
+    VALUES (?,?,?,?,?,?)";
     $stmt = $conn->prepare($sql_insert_package);
-    $stmt->bind_param("siis", $namePackage, $pricePackage, $datePackage, $descPackage);
+    $stmt->bind_param("siiiis", $namePackage, $pricePackage, $datePackage, $numberofproducts, $numberofcategories, $descPackage);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($stmt->affected_rows > 0) {
-        // echo "<script language='JavaScript'> 
-        //     alert('Thêm thông tin gói thành công');
-        //     </script>";
+        $_SESSION["message"] = "<span class = 'text-warning'>Thêm gói thành công!</span>";
         echo "<script language='JavaScript'> 
             window.location.href = './ADpackages.php';
             </script>";
@@ -34,18 +35,18 @@ if (isset($_POST['addPackage'])) {
     $pricePackage = $_POST['pricePackage'];
     $datePackage = $_POST['datePackage'];
     $descPackage = $_POST['descPackage'];
+    $numberofcategories = $_POST['numberofcategories'];
+    $numberofproducts = $_POST['numberofproducts'];
 
-    $sql_update_package = "UPDATE packages SET name = ?, price = ?, packagedate = ?, description = ?  WHERE packageid = ?";
+    $sql_update_package = "UPDATE packages SET name = ?, price = ?, packagedate = ?,
+    numberofcategories = ?, numberofproducts = ?, description = ?  WHERE packageid = ?";
     $stmt = $conn->prepare($sql_update_package);
-    $stmt->bind_param("siisi", $namePackage, $pricePackage, $datePackage, $descPackage, $id);
+    $stmt->bind_param("siiiisi", $namePackage, $pricePackage, $datePackage, $numberofcategories, $numberofproducts, $descPackage, $id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($stmt->affected_rows > 0) {
-
-        // echo "<script language='JavaScript'> 
-        //     alert('sửa thông tin gói thành công');
-        //     </script>";
+        $_SESSION["message"] = "<span class = 'text-warning'>Cập nhật gói thành công!</span>";
         echo "<script language='JavaScript'> 
             window.location.href = 'ADpackages.php';
             </script>";
@@ -66,9 +67,7 @@ if (isset($_POST['addPackage'])) {
     $result = $stmt->get_result();
 
     if ($stmt->affected_rows > 0) {
-        // echo "<script language='JavaScript'> 
-        //     alert('Xóa thông tin gói thành công');
-        //     </script>";
+        $_SESSION["message"] = "<span class = 'text-warning'>Xóa gói thành công!</span>";
         echo "<script language='JavaScript'> 
             window.location.href = 'ADpackages.php';
             </script>";

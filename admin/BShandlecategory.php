@@ -7,32 +7,99 @@ include("./Template/loadingpage.php");
 
 <?php
 if (isset($_POST['addCategory'])) {
-    $nameCategory = $_POST['nameCategory'];
-    $statusCategory = $_POST['statusCategory'];
     $businessid = $_SESSION['businessid'];
-    // img
-    $imageDirectory = "../uploadBS/";
-    $currentDateTime = date("YmdHis");
-    $newFileName = $businessid . "_" . $currentDateTime . "_" . basename($_FILES["imgCategory"]["name"]);
-    $newFilePath = $imageDirectory . $newFileName;
-    $tempFilePath = $_FILES["imgCategory"]["tmp_name"];
-    move_uploaded_file($tempFilePath, $newFilePath);
+    $current_date = date("Y-m-d");
+    $status = 1;
 
-    $sql_insert_category = "INSERT INTO categories (categoryname, categorystatus, categoryimage, businessid) VALUES (?,?,?,?)";
-    $stmt = $conn->prepare($sql_insert_category);
-    $stmt->bind_param("sisi", $nameCategory, $statusCategory, $newFilePath, $businessid);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($stmt->affected_rows > 0) {
-        // echo "<script language='JavaScript'> 
-        //     alert('Thêm thông tin danh mục thành công');
-        //     </script>";
-        echo "<script language='JavaScript'> 
-            window.location.href = './BScategory.php';
-            </script>";
-    } else {
-        header("Location: ../../404.html");
-        exit;
+    $sql = "SELECT COUNT(businesspackages.businesspackageid) AS total_count, businesspackages.packageid AS pid
+    FROM businesspackages INNER JOIN businesses
+    ON businesspackages.businessid = businesses.businessid
+    WHERE businesspackages.status = $status AND DATE(businesspackages.enddate) >= DATE('$current_date')
+    AND businesspackages.businessid = $businessid";
+    $result = $conn->query($sql);
+
+    if ($row = $result->fetch_assoc()) {
+        $pid = $row['pid'];
+        if ($row['total_count'] == 0) {
+            echo '<script src="./assets/js/sweetalert.min.js"></script>';
+            echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "BẠN CHƯA CÓ GÓI DỊCH VỤ NÀO!",
+                    text: "Vui lòng nâng cấp gói để sử dụng dịch vụ!",
+                    icon: "warning",
+                    button: "Đồng ý"
+                }).then(() => {
+                    window.location.href = "./BScategory.php";
+                });
+            });
+          </script>';
+            exit();
+        }
+
+        $sql_noc = "SELECT numberofcategories FROM packages WHERE packageid = $pid";
+        $result_noc = $conn->query($sql_noc);
+        $sql_count_cate = "SELECT COUNT(categoryid) as count_id FROM categories WHERE businessid = $businessid";
+        $result_count_cate = $conn->query($sql_count_cate);
+
+        if ($row1 = $result_noc->fetch_assoc()) {
+            $noc =  $row1['numberofcategories'];
+        }
+        if ($row2 =  $result_count_cate->fetch_assoc()) {
+            $count_cate = $row2['count_id'];
+        }
+
+        if ($noc <= $count_cate) {
+            echo '<script src="./assets/js/sweetalert.min.js"></script>';
+            echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "GÓI KHÔNG KHẢ THI!",
+                    text: "Vui lòng nâng cấp gói để sử dụng dịch vụ!",
+                    icon: "warning",
+                    button: "Đồng ý"
+                }).then(() => {
+                    window.location.href = "./BScategory.php";
+                });
+            });
+          </script>';
+            exit();
+        }
+
+        $nameCategory = $_POST['nameCategory'];
+        $statusCategory = $_POST['statusCategory'];
+        // img
+        $imageDirectory = "../uploadBS/";
+        $currentDateTime = date("YmdHis");
+        $newFileName = $businessid . "_" . $currentDateTime . "_" . basename($_FILES["imgCategory"]["name"]);
+        $newFilePath = $imageDirectory . $newFileName;
+        $tempFilePath = $_FILES["imgCategory"]["tmp_name"];
+        move_uploaded_file($tempFilePath, $newFilePath);
+
+        $sql_insert_category = "INSERT INTO categories (categoryname, categorystatus, categoryimage, businessid) VALUES (?,?,?,?)";
+        $stmt = $conn->prepare($sql_insert_category);
+        $stmt->bind_param("sisi", $nameCategory, $statusCategory, $newFilePath, $businessid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($stmt->affected_rows > 0) {
+            echo '<script src="./assets/js/sweetalert.min.js"></script>';
+            echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "ĐÃ THÊM!",
+                    text: "Danh mục của bạn đã được thêm!",
+                    icon: "success",
+                    button: "Đồng ý"
+                }).then(() => {
+                    window.location.href = "./BScategory.php";
+                });
+            });
+          </script>';
+            exit();
+        } else {
+            header("Location: ../../404.html");
+            exit;
+        }
     }
 } elseif (isset($_POST['editCategory'])) {
     $id = $_POST['categoryid'];
@@ -58,9 +125,20 @@ if (isset($_POST['addCategory'])) {
     $stmt->execute();
     $result = $stmt->get_result();
     if ($stmt->affected_rows > 0) {
-        echo "<script language='JavaScript'> 
-            window.location.href = './BScategory.php';
-            </script>";
+        echo '<script src="./assets/js/sweetalert.min.js"></script>';
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "ĐÃ CẬP NHẬT!",
+                    text: "Danh mục của bạn đã được cập nhật!",
+                    icon: "success",
+                    button: "Đồng ý"
+                }).then(() => {
+                    window.location.href = "./BScategory.php";
+                });
+            });
+          </script>';
+        exit();
     } else {
         header("Location: ../../404.html");
         exit;
@@ -101,12 +179,20 @@ if (isset($_POST['addCategory'])) {
     WHERE categoryid = $id";
     $result_delete_categoryimage = $conn->query($sql_delete_categoryimage);
     if ($result_delete_image && $result_delete_thumbnail && $result_delete_categoryimage) {
-        // echo "<script language='JavaScript'> 
-        //     alert('Xóa thông tin danh mục thành công');
-        //     </script>";
-        echo "<script language='JavaScript'> 
-            window.location.href = './BScategory.php';
-            </script>";
+        echo '<script src="./assets/js/sweetalert.min.js"></script>';
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "ĐÃ XÓA!",
+                    text: "Danh mục của bạn đã được xóa!",
+                    icon: "success",
+                    button: "Đồng ý"
+                }).then(() => {
+                    window.location.href = "./BScategory.php";
+                });
+            });
+          </script>';
+        exit();
     } else {
         header("Location: ../../404.html");
         exit;
@@ -127,9 +213,20 @@ if (isset($_POST['addCategory'])) {
             $resultstatuscategory = $conn->query($sqlstatuscategory);
             $resultstatusproduct = $conn->query($sqlstatusproduct);
         }
-        echo "<script language='JavaScript'> 
-            window.location.href = './BScategory.php';
-            </script>";
+        echo '<script src="./assets/js/sweetalert.min.js"></script>';
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                swal({
+                    title: "ĐÃ CẬP NHẬT!",
+                    text: "Trạng thái đã được cập nhật!",
+                    icon: "success",
+                    button: "Đồng ý"
+                }).then(() => {
+                    window.location.href = "./BScategory.php";
+                });
+            });
+          </script>';
+        exit();
     }
 }
 $conn->close();

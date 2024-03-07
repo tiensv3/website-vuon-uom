@@ -42,11 +42,13 @@ session_destroy();
                             <form class="pt-3" action="./handleLogin.php" method="POST">
                                 <div class="form-group">
                                     <label for="" class="text text-black">Email:</label>
-                                    <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="example@gmail.com">
+                                    <input type="email" name="email" class="form-control form-control-lg"
+                                        id="exampleInputEmail1" placeholder="example@gmail.com">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="text text-black">Mật khẩu:</label>
-                                    <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="******">
+                                    <input type="password" name="password" class="form-control form-control-lg"
+                                        id="exampleInputPassword1" placeholder="******">
                                 </div>
                                 <div class="mt-3">
                                     <input type="submit" name="login" value="Đăng nhập" class="btn btn-success w-100">
@@ -54,7 +56,8 @@ session_destroy();
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input"> Lưu mật khẩu </label>
+                                            <input type="checkbox" class="form-check-input" name="rememberMe"> Ghi nhớ
+                                        </label>
                                     </div>
                                     <a href="#" class="auth-link text-black">Quên mật khẩu?</a>
                                 </div>
@@ -62,7 +65,8 @@ session_destroy();
                                     <button type="button" class="btn btn-block btn-google auth-form-btn">
                                         <i class="mdi mdi-google mr-2"></i>Liên kết với Google </button>
                                 </div>
-                                <div class="text-center mt-4 font-weight-light"> Chưa có tài khoản? <a href="./register.php" class="text-primary">Đăng ký</a><span> ngay</span>
+                                <div class="text-center mt-4 font-weight-light"> Chưa có tài khoản? <a
+                                        href="./register.php" class="text-primary">Đăng ký</a><span> ngay</span>
                                 </div>
                             </form>
                         </div>

@@ -1,4 +1,5 @@
 <?php
+
 include("./Template/headerAD.php");
 include("./Template/navbarAD.php");
 include("./Template/sidebarAD.php");
