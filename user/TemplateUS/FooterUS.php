@@ -4,12 +4,11 @@
             <div class="row">
                 <div class="col-lg-3  col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <h6>About Us</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut labore dolore
-                            magna aliqua.
-                        </p>
+                        <h6>Về chúng tôi</h6>
+                        <h2 class="text-white ">
+                            STOP <span class="font-italic">TALKING</span> <br>
+                            START <span class="font-italic">DOING!</span>
+                        </h2>
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-6 col-sm-6">
@@ -68,8 +67,7 @@
                 </div>
             </div>
             <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                <p class="footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>
                         document.write(new Date().getFullYear());
                     </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -81,8 +79,7 @@
     <!-- End footer Area -->
 
     <script src="./assets/js/vendor/jquery-2.2.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="./assets/js/vendor/bootstrap.min.js"></script>
     <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
     <script src="./assets/js/jquery.nice-select.min.js"></script>
@@ -117,6 +114,7 @@
             }
         }
     </script>
+
 
 
     </body>

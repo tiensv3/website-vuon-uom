@@ -34,7 +34,12 @@ if (isset($_POST['login'])) {
                 $_SESSION['customer'] = $row['email'];
                 $_SESSION['userid'] = $row['userid'];
                 $_SESSION['account'] = $row['email'];
-
+                $_SESSION['info_user'] = array(
+                    'fullname' => $row['fullname'],
+                    'address' => $row['address'],
+                    'phone' => $row['phone'],
+                    'email' => $row['email']
+                );
                 header('Location: ./user/index.php');
                 exit();
             } elseif ($row['role'] == 1) {

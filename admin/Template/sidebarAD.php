@@ -7,24 +7,25 @@
                 <?php
                 if (isset($_SESSION["admin"])) {
                 ?>
-                    <a class="nav-link" href="../admin/index.php">
-                        <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
-                        <span class="menu-title">Trang chủ</span>
-                    </a>
+                <a class="nav-link" href="../admin/index.php">
+                    <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+                    <span class="menu-title">Trang chủ</span>
+                </a>
                 <?php
                 } elseif (isset($_SESSION["business"])) {
                 ?>
-                    <a class="nav-link" href="../admin/BSindex.php">
-                        <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
-                        <span class="menu-title">Trang chủ</span>
-                    </a>
+                <a class="nav-link" href="../admin/BSindex.php">
+                    <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+                    <span class="menu-title">Trang chủ</span>
+                </a>
                 <?php
                 }
                 ?>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                    <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <span class="icon-bg"><i class="mdi mdi-clipboard-text menu-icon"></i></span>
                     <span class="menu-title">Quản lý</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -33,20 +34,20 @@
                         <?php
                         if (isset($_SESSION['admin'])) {
                         ?>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/ADlist.php">Danh sách doanh nghiệp</a>
-                            </li>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/ADpackages.php">Quản lý gói dịch vụ</a>
-                            </li>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/ADregisterpackages.php">Danh sách
-                                    đăng ký gói</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/ADlist.php">Danh sách doanh nghiệp</a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/ADpackages.php">Quản lý gói dịch vụ</a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/ADregisterpackages.php">Danh sách
+                                đăng ký gói</a></li>
 
                         <?php
                         } elseif (isset($_SESSION['business'])) {
                         ?>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/BScategory.php">Danh sách danh mục</a>
-                            </li>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/BSproduct.php">Quản lý sản phẩm</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="/admin/BSmypackage.php">Gói của tôi</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/BScategory.php">Danh sách danh mục</a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/BSproduct.php">Quản lý sản phẩm</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/BSmypackage.php">Gói của tôi</a></li>
                         <?php
                         }
                         ?>
@@ -57,25 +58,25 @@
                 <?php
                 if (isset($_SESSION['business'])) {
                 ?>
-                    <a class="nav-link" href="/admin/BSregisterpackages.php">
-                        <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                        <span class="menu-title">Gói dịch vụ</span>
-                    </a>
+                <a class="nav-link" href="/admin/BSregisterpackages.php">
+                    <span class="icon-bg"><i class="mdi mdi-clock menu-icon"></i></span>
+                    <span class="menu-title">Gói dịch vụ</span>
+                </a>
                 <?php
                 } elseif (isset($_SESSION['admin'])) {
                 ?>
-                    <a class="nav-link" href="/admin/ADregisterpackages.php">
-                        <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-                        <span class="menu-title">Danh sách đăng ký gói</span>
-                    </a>
+                <a class="nav-link" href="/admin/ADregisterpackages.php">
+                    <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
+                    <span class="menu-title">Danh sách đăng ký gói</span>
+                </a>
                 <?php
                 }
                 ?>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="pages/forms/basic_elements.html">
-                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
-                    <span class="menu-title">Forms</span>
+                    <span class="icon-bg"><i class="mdi mdi-truck menu-icon"></i></span>
+                    <span class="menu-title">Đơn đặt hàng</span>
                 </a>
             </li>
             <li class="nav-item">

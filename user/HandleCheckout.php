@@ -10,19 +10,30 @@ if (isset($_POST['ConfirmCheckout'])) {
 	$phone = $_POST['phone'];
 	$address = $_POST['address'];
 	$method = $_POST['method'];
-	$total = $_SESSION['alltotal'];
+	$total = $_SESSION['total'];
 	$status = 1;
 	$userid = $_SESSION['userid'];
 
 	/* -------------------------------------------------------------------------- */
 	/*                             hàm insert hóa đơn                             */
-	$orderCode = rand(00000, 99999); // cho mã code ngẫu nhiên
-
-	// $sql_insert_order = "INSERT INTO `order` (ordercode, email, phone, total, method, status, userid) VALUES ('$orderCode' ,'$email', '$phone', '$total', '$method', '$status', '$userid')";
+	$randletter = chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)); // chạy ngẫu nhiên chữ
+	$randnumber = rand(0000000, 9999999); // chạy ngẫu nhiên số 
+	$ordercode = $randletter . $randnumber;
+	/* ----------------------------- insert in order ---------------------------- */
+	$sql_insert_order = "INSERT INTO orders (ordercode, total, shipaddress, status, userid, method) VALUES ('$ordercode' , '$total', '$address', '$status' , '$userid', '$method' )";
 	$result_insert_order = $conn->query($sql_insert_order);
+	$orderid = $conn->insert_id;
 
+	/* --------------------------- insert orderdetail --------------------------- */
+	foreach ($_SESSION['cart'] as $cart) {
+		$product_id = $cart['id'];
+		$quantity = $cart['quantity'];
+		$sql_insert_detail = "INSERT INTO orderdetails(quantityproduct, productid,orderid) VALUES ('$quantity' , '$product_id', '$orderid' )";
+		$result_insert_order_detail = $conn->query($sql_insert_detail);
+	}
 
-	if ($result_insert_order == TRUE) {
+	unset($_SESSION['cart']);
+	if ($result_insert_order_detail == TRUE) {
 		echo "<script  language=javascript>
             alert('Đặt hàng thành công! Chúng tôi sẽ giao hàng cho bạn sớm nhất');
         </script>";

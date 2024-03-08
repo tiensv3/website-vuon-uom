@@ -10,7 +10,9 @@ include("../user/TemplateUS/NavbarUS.php");
 <!--================Contact Area =================-->
 <section class="contact_area section_gap_bottom">
     <div class="container">
-        <div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13" data-info="Số 126, Đường Nguyễn Thiện Thành, Phường 5, Tp, Trà Vinh, Tỉnh Trà Vinh" data-mlat="40.701083" data-mlon="-74.1522848">
+        <div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13"
+            data-info="Số 126, Đường Nguyễn Thiện Thành, Phường 5, Tp, Trà Vinh, Tỉnh Trà Vinh" data-mlat="40.701083"
+            data-mlon="-74.1522848">
         </div>
         <div class="row">
             <div class="col-lg-3">
@@ -61,21 +63,30 @@ include("../user/TemplateUS/NavbarUS.php");
                     }
                 }
                 ?>
-                <form class="row contact_form" action="./Contact.php?action=lienhe" method="post" id="contactForm" novalidate="novalidate">
+                <form class="row contact_form" action="./Contact.php?action=lienhe" method="post" id="contactForm"
+                    novalidate="novalidate">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên (doanh nghiệp) của bạn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Nhập tên (doanh nghiệp) của bạn" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Enter your name'">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Nhập địa chỉ email của bạn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Nhập địa chỉ email của bạn" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Enter email address'">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Nhập tên tiêu đề" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
+                            <input type="text" class="form-control" id="subject" name="subject"
+                                placeholder="Nhập tên tiêu đề" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Enter Subject'">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Nhập nội dung cần liên hệ" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
+                            <textarea class="form-control" name="message" id="message" rows="1"
+                                placeholder="Nhập nội dung cần liên hệ" onfocus="this.placeholder = ''"
+                                onblur="this.placeholder = 'Enter Message'"></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 text-right">
