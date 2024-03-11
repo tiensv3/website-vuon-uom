@@ -28,8 +28,15 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-    $receive = $_SESSION['email'];
-    $token = $_SESSION['token'];
+    $receive = $_POST['email'];
+    $random_byte = random_bytes(16);
+    $token = bin2hex($random_byte);
+
+    include("./connect.php");
+    $sql = "UPDATE users set token = ? WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $token, $receive);
+    $stmt->execute();
     //Recipients
     $mail->setFrom('liaosunihon@gmail.com', mb_encode_mimeheader('Vườn ươm doanh nghiệp', 'UTF-8'));
     $mail->addAddress($receive, 'Test mail');     //Add a recipient
@@ -44,8 +51,8 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = mb_encode_mimeheader('Kích hoạt tài khoản', 'UTF-8');
-    $html_content = file_get_contents('email.php');
+    $mail->Subject = mb_encode_mimeheader('Bạn quên mật khẩu?', 'UTF-8');
+    $html_content = file_get_contents('emailRepassword.php');
     $html_content = str_replace('{{codetoken}}', $token, $html_content);
     $mail->Body = $html_content;
 
@@ -55,12 +62,13 @@ try {
 
     $mail->send();
 
+
     echo '<script src="./user/assets/js/sweetalert.min.js"></script>';
     echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
                 swal({
-                    title: "ĐĂNG KÝ THÀNH CÔNG!",
-                    text: "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản!",
+                    title: "ĐÃ GỬI YÊU CẦU",
+                    text: "Vui lòng kiểm tra email của bạn để lấy lại mật khẩu!",
                     icon: "success",
                     button: "Đồng ý"
                 }).then(() => {

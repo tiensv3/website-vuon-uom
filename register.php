@@ -9,7 +9,7 @@ session_destroy();
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Connect Plus</title>
+    <title>Vườn ươm doanh nghiệp Trà Vinh</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -38,31 +38,28 @@ session_destroy();
                         </div>
                         <h4>Tạo tài khoản mới?</h4>
                         <h6 class="font-weight-light">Đăng ký rất dễ dàng. Nó chỉ mất một vài bước</h6>
-                        <form class="pt-3" action="./handleRegister.php" method="POST">
-                            <div class="form-group">
+                        <form class="pt-3" action="./handleRegister.php" method="POST" onsubmit="return validatePassword()">
+                            <div class=" form-group">
                                 <label for="" class="text-black">Họ và tên:</label>
-                                <input type="text" name="fullname" class="form-control form-control-lg"
-                                    id="exampleInputUsername1" placeholder="Ví dụ: Nguyễn Văn A" required>
+                                <input type="text" name="fullname" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Ví dụ: Nguyễn Văn A" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Email:</label>
-                                <input type="email" name="email" class="form-control form-control-lg"
-                                    id="exampleInputEmail1" placeholder="example@gmail.com" required>
+                                <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="example@gmail.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Mật khẩu:</label>
-                                <input type="password" name="password" class="form-control form-control-lg"
-                                    id="exampleInputPassword1" placeholder="******" required>
+                                <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="******" maxlength="16" minlength="8" required>
+                                <span id="passwordMatch" style="color: red;"></span>
+
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Địa chỉ:</label>
-                                <input type="text" name="address" id="" class="form-control form-control-lg "
-                                    placeholder="Ví dụ: 123, đường quang trung, Quận 1 , HCM" required>
+                                <input type="text" name="address" id="" class="form-control form-control-lg " placeholder="Ví dụ: 123, đường quang trung, Quận 1 , HCM" required>
                             </div>
                             <div class="form-group">
                                 <label for="" class="text-black">Số điện thoại:</label>
-                                <input type="number" name="phone" id="" class="form-control form-control-lg "
-                                    placeholder="Ví dụ: 0911096648" required>
+                                <input type="number" name="phone" id="" class="form-control form-control-lg " placeholder="Ví dụ: 0911096648" required>
                             </div>
                             <!-- <div class="mb-4">
                                 <div class="form-check">
@@ -75,8 +72,7 @@ session_destroy();
                                 <input type="submit" name="submit" value="Đăng ký" class="btn btn-success w-100">
                             </div>
 
-                            <div class="text-center mt-4 font-weight-light"> Đã có tài khoản? <a href="./login.php"
-                                    class="text-primary">Đăng nhập</a></div>
+                            <div class="text-center mt-4 font-weight-light"> Đã có tài khoản? <a href="./login.php" class="text-primary">Đăng nhập</a></div>
                             <div class="row mt-3">
                                 <div class="col-2"></div>
                                 <div class="col-10">
@@ -94,20 +90,28 @@ session_destroy();
     <!-- page-body-wrapper ends -->
 </div>
 
-<!-- plugins:js -->
-<script src="../admin/assets/vendors/js/vendor.bundle.base.js"></script>
-<!-- endinject -->
-<!-- Plugin js for this page -->
+<script>
+    function validatePassword() {
+        const password = document.getElementById('exampleInputPassword1').value;
+        const passwordMatch = document.getElementById('passwordMatch');
+        const submitButton = document.querySelector('input[type="submit"]');
 
-<!-- End plugin js for this page -->
-<!-- inject:js -->
-<script src="../admin/assets/js/off-canvas.js"></script>
-<script src="../admin/assets/js/hoverable-collapse.js"></script>
-<script src="../admin/assets/js/misc.js"></script>
-<!-- endinject -->
-<!-- Custom js for this page -->
-<script src="../admin/assets/js/dashboard.js"></script>
-<!-- End custom js for this page -->
+        // Kiểm tra mật khẩu có ít nhất 1 số, 1 chữ hoa và 1 chữ thường
+        const hasNumber = /\d/.test(password);
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        if (!hasNumber || !hasUpperCase || !hasLowerCase) {
+            passwordMatch.textContent = "Mật khẩu phải có ít nhất 1 số, 1 chữ hoa và 1 chữ thường!";
+            // submitButton.disabled = true;
+            return false;
+        }
+
+        passwordMatch.textContent = "";
+        // submitButton.disabled = false;
+        return true;
+    }
+</script>
+
 </body>
 
 </html>

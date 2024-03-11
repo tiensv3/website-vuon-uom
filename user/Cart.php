@@ -64,43 +64,50 @@ include("../user/TemplateUS/NavbarUS.php");
                                 $totalPrice += $item['total'];
 
                         ?>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <!-- <div class="d-flex">
+                        <tr>
+                            <td>
+                                <div class="media">
+                                    <!-- <div class="d-flex">
                                                     <img src="../user/assets/img/cart.jpg" alt="">
                                                 </div> -->
-                                            <div class="media-body">
-                                                <p class="text-uppercase"><?php echo $item['name'] ?></p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5><?php echo number_format($item['price']) . ' VNĐ' ?></h5>
-                                    </td>
-                                    <td>
-                                        <form action="../user/HandleCart.php" method="POST">
-                                            <div class="product_count">
-                                                <input type=" text" name="qty" id="sst<?php echo $item['id']; ?>" maxlength="12" value="<?php echo $item['quantity'] ?>" title="Quantity:" class="input-text qty">
-                                                <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
-                                                <!-- Thêm ID sản phẩm vào sự kiện JavaScript -->
-                                                <button onclick="increaseQuantity(<?php echo $item['id']; ?>)" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                                <button onclick="decreaseQuantity(<?php echo $item['id']; ?>)" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                            </div>
-                                            <input type="submit" name="submit-quantity" class="btn btn-success" value="Cập nhật">
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <h6 class="w-100"><?php echo number_format($item['total']) . ' VNĐ' ?></h6>
-                                    </td>
-                                    <td>
-                                        <form action="../user/HandleCart.php" method="post">
-                                            <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
-                                            <input type="submit" name="delete_product_id" value="Xóa" class="btn btn-danger">
-                                        </form>
-                                    </td>
+                                    <div class="media-body">
+                                        <p class="text-uppercase"><?php echo $item['name'] ?></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h5><?php echo number_format($item['price']) . ' VNĐ' ?></h5>
+                            </td>
+                            <td>
+                                <form action="../user/HandleCart.php" method="POST">
+                                    <div class="product_count">
+                                        <input type=" text" name="qty" id="sst<?php echo $item['id']; ?>" maxlength="12"
+                                            value="<?php echo $item['quantity'] ?>" title="Quantity:"
+                                            class="input-text qty">
+                                        <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
+                                        <!-- Thêm ID sản phẩm vào sự kiện JavaScript -->
+                                        <button onclick="increaseQuantity(<?php echo $item['id']; ?>)"
+                                            class="increase items-count" type="button"><i
+                                                class="lnr lnr-chevron-up"></i></button>
+                                        <button onclick="decreaseQuantity(<?php echo $item['id']; ?>)"
+                                            class="reduced items-count" type="button"><i
+                                                class="lnr lnr-chevron-down"></i></button>
+                                    </div>
+                                    <input type="submit" name="submit-quantity" class="btn btn-success"
+                                        value="Cập nhật">
+                                </form>
+                            </td>
+                            <td>
+                                <h6 class="w-100"><?php echo number_format($item['total']) . ' VNĐ' ?></h6>
+                            </td>
+                            <td>
+                                <form action="../user/HandleCart.php" method="post">
+                                    <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
+                                    <input type="submit" name="delete_product_id" value="Xóa" class="btn btn-danger">
+                                </form>
+                            </td>
 
-                                </tr>
+                        </tr>
                         <?php
                             }
                         } else {
@@ -110,7 +117,8 @@ include("../user/TemplateUS/NavbarUS.php");
 
                         <tr class="bottom_button">
                             <td>
-                                <a class="gray_btn p-3" href="../user/HandleCart.php?action=xoaSP">Xóa tất cả sản phẩm</a>
+                                <a class="gray_btn p-3" href="../user/HandleCart.php?action=xoaSP">Xóa tất cả sản
+                                    phẩm</a>
                             </td>
                             <td>
                             </td>
@@ -197,7 +205,7 @@ include("../user/TemplateUS/NavbarUS.php");
                                     <?php
                                     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                                     ?>
-                                        <a class="primary-btn" href="../user/Checkout.php">Thanh toán</a>
+                                    <a class="primary-btn" href="../user/Checkout.php">Thanh toán</a>
                                     <?php
                                     }
                                     ?>

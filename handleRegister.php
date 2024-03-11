@@ -15,10 +15,19 @@ if (isset($_POST['submit'])) {
 
     while ($row = $result_check_email->fetch_assoc()) {
         if ($row['CE'] > 0) {
-            echo "<script  language=javascript>
-            alert('Email đã tồn tại');
-            window.location = './register.php';
-        </script>";
+            echo '<script src="./user/assets/js/sweetalert.min.js"></script>';
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    swal({
+                        title: "EMAIL ĐÃ TỒN TẠI!",
+                        text: "Vui lòng đăng ký bằng một tài khoản email khác!",
+                        icon: "error",
+                        button: "Đồng ý"
+                    }).then(() => {
+                        window.location.href = "./register.php";
+                    });
+                });
+              </script>';
             exit();
         }
     }
@@ -35,7 +44,7 @@ if (isset($_POST['submit'])) {
     if ($stmt->affected_rows > 0) {
         $_SESSION['token'] = $token;
         $_SESSION['email'] = $email;
-        include("./sendmail.php");
+        include("./sendMailActive.php");
     }
 } elseif (isset($_POST['submitBusiness'])) {
     $fullname = $_POST['fullname'];
@@ -50,10 +59,19 @@ if (isset($_POST['submit'])) {
 
     while ($row = $result_check_email->fetch_assoc()) {
         if ($row['CE'] > 0) {
-            echo "<script  language=javascript>
-            alert('Email đã tồn tại');
-            window.location = './registerBusiness.php';
-        </script>";
+            echo '<script src="./user/assets/js/sweetalert.min.js"></script>';
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    swal({
+                        title: "EMAIL ĐÃ TỒN TẠI!",
+                        text: "Vui lòng đăng ký bằng một tài khoản email khác!",
+                        icon: "error",
+                        button: "Đồng ý"
+                    }).then(() => {
+                        window.location.href = "./registerBusiness.php";
+                    });
+                });
+              </script>';
             exit();
         }
     }
@@ -90,7 +108,7 @@ if (isset($_POST['submit'])) {
         if ($stmt->affected_rows > 0) {
             $_SESSION['token'] = $token;
             $_SESSION['email'] = $email;
-            include("./sendmail.php");
+            include("./sendMailActive.php");
         }
     }
 }

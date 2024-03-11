@@ -20,7 +20,11 @@ include("../user/TemplateUS/NavbarUS.php");
                             <div class="banner-content  p-5 ml-4">
                                 <h4 class="text-uppercase">Vườn ươm doanh nghiệp<br>Phiên bản 2.0!</h4>
                                 <div class="text text-primary text-justify font-italic">
-                                    Website Vườn Ươm Doanh Nghiệp Phiên Bản 2.0 là nền tảng tiên tiến và đầy đủ chức năng, nhằm hỗ trợ các doanh nghiệp mới khởi nghiệp và phát triển. Phiên bản mới này được thiết kế với giao diện người dùng thân thiện, tối ưu hóa trải nghiệm người dùng, và tích hợp nhiều tính năng mới để cung cấp nguồn thông tin và tư vấn chuyên sâu cho doanh nghiệp.</div>
+                                    Website Vườn Ươm Doanh Nghiệp Phiên Bản 2.0 là nền tảng tiên tiến và đầy đủ chức
+                                    năng, nhằm hỗ trợ các doanh nghiệp mới khởi nghiệp và phát triển. Phiên bản mới này
+                                    được thiết kế với giao diện người dùng thân thiện, tối ưu hóa trải nghiệm người
+                                    dùng, và tích hợp nhiều tính năng mới để cung cấp nguồn thông tin và tư vấn chuyên
+                                    sâu cho doanh nghiệp.</div>
 
                             </div>
                         </div>
@@ -36,7 +40,11 @@ include("../user/TemplateUS/NavbarUS.php");
                         <div class="col-lg-5 col-md-6">
                             <div class="banner-content p-5 ml-4">
                                 <h4 class="text-uppercase">Nơi mua sắm tiện lợi!</h4>
-                                <p class="text-justify text-primary font-italic">Mua sắm tiện lợi là trải nghiệm mua sắm thuận lợi và nhanh chóng, giúp tiết kiệm thời gian cho người tiêu dùng. Với sự phát triển của mua sắm trực tuyến, việc chọn lựa và mua hàng trở nên dễ dàng từ bất kỳ đâu, mọi lúc. Các dịch vụ giao hàng nhanh giúp đảm bảo sản phẩm đến tay khách hàng một cách thuận lợi.</p>
+                                <p class="text-justify text-primary font-italic">Mua sắm tiện lợi là trải nghiệm mua sắm
+                                    thuận lợi và nhanh chóng, giúp tiết kiệm thời gian cho người tiêu dùng. Với sự phát
+                                    triển của mua sắm trực tuyến, việc chọn lựa và mua hàng trở nên dễ dàng từ bất kỳ
+                                    đâu, mọi lúc. Các dịch vụ giao hàng nhanh giúp đảm bảo sản phẩm đến tay khách hàng
+                                    một cách thuận lợi.</p>
 
                             </div>
                         </div>
@@ -128,16 +136,19 @@ include("../user/TemplateUS/NavbarUS.php");
 
                     while ($business = mysqli_fetch_array($result_select_business)) {
                     ?>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="single-deal">
-                                <img class="rounded" src="../<?php echo $business['image'] ?>" alt="" width="200" height="190">
-                                <a href="./ListBrand.php?action=thuonghieu&id=<?php echo $business['businessid'] ?>" target="_blank">
-                                    <div class="deal-details">
-                                        <h6 class="deal-title" style="color: #000;"><?php echo $business['businessname'] ?></h6>
-                                    </div>
-                                </a>
-                            </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="single-deal">
+                            <img class="rounded" src="../<?php echo $business['image'] ?>" alt="" width="200"
+                                height="190">
+                            <a href="./ListBrand.php?action=thuonghieu&id=<?php echo $business['businessid'] ?>"
+                                target="_blank">
+                                <div class="deal-details">
+                                    <h6 class="deal-title" style="color: #000;"><?php echo $business['businessname'] ?>
+                                    </h6>
+                                </div>
+                            </a>
                         </div>
+                    </div>
 
                     <?php
                     }
@@ -150,7 +161,7 @@ include("../user/TemplateUS/NavbarUS.php");
 
                         <div class="pagination">
                             <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                <a href='index.php?page=<?php echo $i; ?>'><?php echo $i; ?></a>
+                            <a href='index.php?page=<?php echo $i; ?>'><?php echo $i; ?></a>
                             <?php endfor; ?>
                         </div>
                     </div>
@@ -184,59 +195,66 @@ include("../user/TemplateUS/NavbarUS.php");
 
     while ($product_business = mysqli_fetch_array($result_select_by_business_product)) {
     ?>
-        <div class="single-product-slider">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center">
-                        <div class="section-title">
-                            <h1><?php echo $product_business['businessname'] ?></h1>
-                        </div>
+    <div class="single-product-slider">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h1><?php echo $product_business['businessname'] ?></h1>
                     </div>
                 </div>
-                <div class="row">
-                    <?php
+            </div>
+            <div class="row">
+                <?php
                     $business_id = $product_business['businessid']; // lấy id của doanh nghiệp
                     $sql_select_product_business = "SELECT * FROM products WHERE businessid = $business_id ORDER BY products.productid DESC LIMIT 8";
                     $result_select_product_business = $conn->query($sql_select_product_business);
 
                     while ($product = mysqli_fetch_array($result_select_product_business)) {
                     ?>
-                        <!-- single product -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="single-product">
-                                <img class="" src="../<?php echo $product['thumbnail'] ?>" alt="" height="300">
-                                <div class="product-details">
-                                    <h6><?php echo $product['productname'] ?></h6>
-                                    <div class="price">
-                                        <?php
+                <!-- single product -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-product">
+                        <img class="" src="../<?php echo $product['thumbnail'] ?>" alt="" height="300">
+                        <div class="product-details">
+                            <h6><?php echo $product['productname'] ?></h6>
+                            <div class="price">
+                                <?php
                                         if ($product['sale']) {
                                         ?>
-                                            <h6><?php echo number_format($product['sale']) . ' VNĐ' ?></h6>
-                                            <h6 class="l-through"><?php echo number_format($product['price']) . ' VNĐ' ?></h6>
-                                        <?php
+                                <h6><?php echo number_format($product['sale']) . ' VNĐ' ?></h6>
+                                <h6 class="l-through"><?php echo number_format($product['price']) . ' VNĐ' ?></h6>
+                                <?php
                                         } else {
                                         ?>
-                                            <h6 class=""><?php echo number_format($product['price']) . ' VNĐ' ?></h6>
-                                        <?php
+                                <h6 class=""><?php echo number_format($product['price']) . ' VNĐ' ?></h6>
+                                <?php
                                         }
                                         ?>
-                                    </div>
-                                    <div class="prd-bottom">
-                                        <div class="row">
-                                            <div class="col-12 ">
-                                                <form action="../user/HandleCart.php" method="post">
-                                                    <input type="hidden" name="product_id" value="<?php echo $product['productid'] ?>">
-                                                    <input type="hidden" name="product_name" value="<?php echo $product['productname'] ?>">
-                                                    <input type="hidden" name="product_price" value="<?php echo $product['price'] ?>">
-                                                    <input type="hidden" name="product_sale" value="<?php echo $product['sale'] ?>">
-                                                    <input type="hidden" name="product_quantity" id="" value="1">
+                            </div>
+                            <div class="prd-bottom">
+                                <div class="row">
+                                    <div class="col-12 ">
+                                        <form action="../user/HandleCart.php" method="post">
+                                            <input type="hidden" name="product_id"
+                                                value="<?php echo $product['productid'] ?>">
+                                            <input type="hidden" name="product_name"
+                                                value="<?php echo $product['productname'] ?>">
+                                            <input type="hidden" name="product_price"
+                                                value="<?php echo $product['price'] ?>">
+                                            <input type="hidden" name="product_sale"
+                                                value="<?php echo $product['sale'] ?>">
+                                            <input type="hidden" name="business_id" id=""
+                                                value="<?php echo $product['businessid'] ?>">
+                                            <input type="hidden" name="product_quantity" id="" value="1">
 
-                                                    <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2" value="Mua hàng">
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <!-- <a href="" class="social-info">
+                                            <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2"
+                                                value="Mua hàng">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <a href="" class="social-info">
                                                 <span class="lnr lnr-heart"></span>
                                                 <p class="hover-text">Wishlist</p>
                                             </a>
@@ -244,21 +262,22 @@ include("../user/TemplateUS/NavbarUS.php");
                                             <span class="lnr lnr-sync"></span>
                                             <p class="hover-text">compare</p>
                                         </a> -->
-                                            <a href="../user/DetailPro.php?action=chitiet&id=<?php echo $product['productid'] ?>" class="social-info">
-                                                <span class="lnr lnr-move"></span>
-                                                <p class="hover-text">chi tiết</p>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <a href="../user/DetailPro.php?action=chitiet&id=<?php echo $product['productid'] ?>"
+                                        class="social-info">
+                                        <span class="lnr lnr-move"></span>
+                                        <p class="hover-text">chi tiết</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    <?php
+                    </div>
+                </div>
+                <?php
                     }
                     ?>
-                </div>
             </div>
         </div>
+    </div>
     <?php
     }
     ?>
@@ -319,47 +338,55 @@ include("../user/TemplateUS/NavbarUS.php");
                     $result_select_pro_sell = $conn->query($sql_select_pro_sell);
                     while ($pro_trending_sell = mysqli_fetch_array($result_select_pro_sell)) {
                     ?>
-                        <!-- single exclusive carousel -->
-                        <div class="single-exclusive-slider">
-                            <img class="img-fluid rounded" src="../<?php echo $pro_trending_sell['thumbnail'] ?>" alt="">
-                            <div class="product-details mt-4">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p>Đã bán : <span><?php echo number_format($pro_trending_sell['soluongdaban']) . ' sản phẩm' ?></span></p>
-                                    </div>
-                                    <div class="col-md-6">
-
-                                    </div>
+                    <!-- single exclusive carousel -->
+                    <div class="single-exclusive-slider">
+                        <img class="img-fluid rounded" src="../<?php echo $pro_trending_sell['thumbnail'] ?>" alt="">
+                        <div class="product-details mt-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Đã bán :
+                                        <span><?php echo number_format($pro_trending_sell['soluongdaban']) . ' sản phẩm' ?></span>
+                                    </p>
                                 </div>
-                                <div class="price">
-                                    <?php
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                            <div class="price">
+                                <?php
                                     if ($pro_trending_sell['sale']) {
                                     ?>
-                                        <h5><?php echo number_format($pro_trending_sell['sale']) . ' VNĐ' ?></h5>
-                                        <h6 class="l-through"><?php echo number_format($pro_trending_sell['price']) . ' VNĐ' ?></h6>
-                                    <?php
+                                <h5><?php echo number_format($pro_trending_sell['sale']) . ' VNĐ' ?></h5>
+                                <h6 class="l-through"><?php echo number_format($pro_trending_sell['price']) . ' VNĐ' ?>
+                                </h6>
+                                <?php
                                     } else if (!$pro_trending_sell['sale']) {
                                     ?>
 
-                                        <h5><?php echo number_format($pro_trending_sell['price']) . ' VNĐ' ?></h5>
-                                    <?php
+                                <h5><?php echo number_format($pro_trending_sell['price']) . ' VNĐ' ?></h5>
+                                <?php
                                     }
                                     ?>
-                                </div>
-                                <h4><?php echo $pro_trending_sell['productname'] ?></h4>
-                                <div class="add-bag d-flex align-items-center justify-content-center">
-                                    <form action="../user/HandleCart.php" method="post">
-                                        <input type="hidden" name="product_id" value="<?php echo $pro_trending_sell['productid'] ?>">
-                                        <input type="hidden" name="product_name" value="<?php echo $pro_trending_sell['productname'] ?>">
-                                        <input type="hidden" name="product_price" value="<?php echo $pro_trending_sell['price'] ?>">
-                                        <input type="hidden" name="product_sale" value="<?php echo $pro_trending_sell['sale'] ?>">
-                                        <input type="hidden" name="product_quantity" id="" value="1">
+                            </div>
+                            <h4><?php echo $pro_trending_sell['productname'] ?></h4>
+                            <div class="add-bag d-flex align-items-center justify-content-center">
+                                <form action="../user/HandleCart.php" method="post">
+                                    <input type="hidden" name="product_id"
+                                        value="<?php echo $pro_trending_sell['productid'] ?>">
+                                    <input type="hidden" name="product_name"
+                                        value="<?php echo $pro_trending_sell['productname'] ?>">
+                                    <input type="hidden" name="product_price"
+                                        value="<?php echo $pro_trending_sell['price'] ?>">
+                                    <input type="hidden" name="product_sale"
+                                        value="<?php echo $pro_trending_sell['sale'] ?>">
+                                    <input type="hidden" name="product_quantity" id="" value="1">
 
-                                        <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2" value="Mua hàng">
-                                    </form>
-                                </div>
+                                    <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2"
+                                        value="Mua hàng">
+                                </form>
                             </div>
                         </div>
+                    </div>
 
                     <?php
                     }
@@ -402,7 +429,8 @@ include("../user/TemplateUS/NavbarUS.php");
             <div class="col-lg-6 text-center">
                 <div class="section-title">
                     <h1>Giảm giá trong tuần</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore
                         magna aliqua.</p>
                 </div>
             </div>
@@ -417,18 +445,18 @@ include("../user/TemplateUS/NavbarUS.php");
 
                     while ($row_trending = mysqli_fetch_array($result_select_hot)) {
                     ?>
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="../<?php echo $row_trending['thumbnail']   ?>" alt="" width="80"></a>
-                                <div class="desc">
-                                    <a href="#" class="title"><?php echo $row_trending['productname'] ?></a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="../<?php echo $row_trending['thumbnail']   ?>" alt="" width="80"></a>
+                            <div class="desc">
+                                <a href="#" class="title"><?php echo $row_trending['productname'] ?></a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <?php
                     }
                     ?>
