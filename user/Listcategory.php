@@ -116,15 +116,25 @@ include("../user/TemplateUS/NavbarUS.php");
                                         <div class="prd-bottom">
                                             <div class="row">
                                                 <div class="col-12 ">
-                                                    <form action="../user/HandleCart.php" method="post">
-                                                        <input type="hidden" name="product_id" value="<?php echo $product_All_id_cate['productid'] ?>">
-                                                        <input type="hidden" name="product_name" value="<?php echo $product_All_id_cate['productname'] ?>">
-                                                        <input type="hidden" name="product_price" value="<?php echo $product_All_id_cate['price'] ?>">
-                                                        <input type="hidden" name="product_sale" value="<?php echo $product_All_id_cate['sale'] ?>">
-                                                        <input type="hidden" name="product_quantity" id="" value="1">
+                                                    <?php
+                                                    if ($product_All_id_cate['quantity'] > 0) {
+                                                    ?>
+                                                        <form action="../user/HandleCart.php" method="post">
+                                                            <input type="hidden" name="product_id" value="<?php echo $product_All_id_cate['productid'] ?>">
+                                                            <input type="hidden" name="product_name" value="<?php echo $product_All_id_cate['productname'] ?>">
+                                                            <input type="hidden" name="product_price" value="<?php echo $product_All_id_cate['price'] ?>">
+                                                            <input type="hidden" name="product_sale" value="<?php echo $product_All_id_cate['sale'] ?>">
+                                                            <input type="hidden" name="product_quantity" id="" value="1">
 
-                                                        <input type="submit" name="addtocart" class="btn btn-primary w-100 mb-2" value="Thêm vào giỏ hàng">
-                                                    </form>
+                                                            <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2" value="Mua hàng">
+                                                        </form>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <a href="http://" class="btn btn-danger w-100 mb-2">Hết hàng</a>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -234,15 +244,27 @@ include("../user/TemplateUS/NavbarUS.php");
                                         <div class="prd-bottom">
                                             <div class="row">
                                                 <div class="col-12 ">
-                                                    <form action="../user/HandleCart.php" method="post">
-                                                        <input type="hidden" name="product_id" value="<?php echo $product_All['productid'] ?>">
-                                                        <input type="hidden" name="product_name" value="<?php echo $product_All['productname'] ?>">
-                                                        <input type="hidden" name="product_price" value="<?php echo $product_All['price'] ?>">
-                                                        <input type="hidden" name="product_sale" value="<?php echo $product_All['sale'] ?>">
-                                                        <input type="hidden" name="product_quantity" id="" value="1">
+                                                    <?php
+                                                    if ($product_All['quantity'] > 0) {
+                                                    ?>
+                                                        <form action="../user/HandleCart.php" method="post">
+                                                            <input type="hidden" name="product_id" value="<?php echo $product_All['productid'] ?>">
+                                                            <input type="hidden" name="product_name" value="<?php echo $product_All['productname'] ?>">
+                                                            <input type="hidden" name="product_price" value="<?php echo $product_All['price'] ?>">
+                                                            <input type="hidden" name="product_sale" value="<?php echo $product_All['sale'] ?>">
+                                                            <input type="hidden" name="businessid" value="<?php echo $product_All['businessid'] ?>">
+                                                            <input type="hidden" name="product_img" value="<?php echo $product_All['thumbnail'] ?>">
+                                                            <input type="hidden" name="product_quantity" id="" value="1">
 
-                                                        <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2" value="Mua hàng">
-                                                    </form>
+                                                            <input type="submit" name="addtocart" class="btn btn-success w-100 mb-2" value="Mua hàng">
+                                                        </form>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <a href="" class="btn btn-danger w-100 mb-2">Hết hàng</a>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                             <div class="row">

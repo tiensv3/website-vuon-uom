@@ -28,199 +28,174 @@ include("../user/TemplateUS/NavbarUS.php");
 
 <!--================Cart Area =================-->
 <section class="cart_area mt-5">
-    <h2 class="text-uppercase text-center">Giỏ hàng</h2>
     <div class="container">
-        <div class="cart_inner">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Sản phẩm</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Tổng</th>
-                            <th scope="col">Quản lý</th>
+        <h2 class="text-uppercase text-center mb-5">Giỏ hàng của bạn</h2>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- load giỏ hàng -->
-                        <?php
-                        $totalPrice = 0;
-                        $tempArray = array(); //mảng kiểm tra trùng lặp
-                        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                            foreach ($_SESSION['cart'] as $item) {
-                                if (isset($tempArray[$item['id']])) {
-                                    // Nếu đã thêm, cập nhật thông tin số lượng và tổng giá
-                                    $tempArray[$item['id']]['quantity'] += $item['quantity'];
-                                    $tempArray[$item['id']]['total'] += $item['total'];
-                                } else {
-                                    // Nếu chưa thêm, thêm vào mảng tạm và hiển thị thông tin
-                                    $tempArray[$item['id']] = $item;
-                                }
-                            }
+        <?php
+        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            $subtotal = 0;
+            foreach ($_SESSION['cart'] as $business_key => $items) {
+                $sql_select_business = "SELECT * FROM Businesses WHERE businessid = '" . $business_key . "'";
+                $result_select_business = $conn->query($sql_select_business);
+                while ($namebusiness = mysqli_fetch_array($result_select_business)) {
+        ?>
 
-                            foreach ($tempArray as $item) {
-                                $totalPrice += $item['total'];
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary ">
+                            <h5 style="color: #fff;" class=""> Các sản phẩm từ: <?php echo $namebusiness['businessname'] ?></h5>
+                        </div>
+                        <div class=" card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-success text-white">
+                                        <tr>
+                                            <th></th>
+                                            <th scope="col">Sản phẩm</th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col">Số lượng</th>
+                                            <th scope="col">Tổng</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($items as $item) {
+                                            $subtotal = $item['product_price'] * $item['product_quantity'];
 
-                        ?>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <!-- <div class="d-flex">
-                                                    <img src="../user/assets/img/cart.jpg" alt="">
-                                                </div> -->
-                                    <div class="media-body">
-                                        <p class="text-uppercase"><?php echo $item['name'] ?></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5><?php echo number_format($item['price']) . ' VNĐ' ?></h5>
-                            </td>
-                            <td>
-                                <form action="../user/HandleCart.php" method="POST">
-                                    <div class="product_count">
-                                        <input type=" text" name="qty" id="sst<?php echo $item['id']; ?>" maxlength="12"
-                                            value="<?php echo $item['quantity'] ?>" title="Quantity:"
-                                            class="input-text qty">
-                                        <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
-                                        <!-- Thêm ID sản phẩm vào sự kiện JavaScript -->
-                                        <button onclick="increaseQuantity(<?php echo $item['id']; ?>)"
-                                            class="increase items-count" type="button"><i
-                                                class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="decreaseQuantity(<?php echo $item['id']; ?>)"
-                                            class="reduced items-count" type="button"><i
-                                                class="lnr lnr-chevron-down"></i></button>
-                                    </div>
-                                    <input type="submit" name="submit-quantity" class="btn btn-success"
-                                        value="Cập nhật">
-                                </form>
-                            </td>
-                            <td>
-                                <h6 class="w-100"><?php echo number_format($item['total']) . ' VNĐ' ?></h6>
-                            </td>
-                            <td>
-                                <form action="../user/HandleCart.php" method="post">
-                                    <input type="hidden" name="product_id" value="<?php echo $item['id'] ?>">
-                                    <input type="submit" name="delete_product_id" value="Xóa" class="btn btn-danger">
-                                </form>
-                            </td>
+                                            $sql_select_stock = "SELECT quantity, businessid FROM products WHERE productid = '" . $item['product_id'] . "'";
+                                            $result_select_stock = $conn->query($sql_select_stock);
 
-                        </tr>
-                        <?php
-                            }
-                        } else {
-                            echo '<div class="text-center text-uppercase m-5 text-danger">Không có sản phẩm trong giỏ hàng vui lòng mua hàng </div>';
-                        }
-                        ?>
+                                            while ($row_stock = mysqli_fetch_array($result_select_stock)) {
+                                        ?>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" name="selected_products[]" value="<?php echo $item['product_id']; ?>" class="form-group mr-4">
+                                                        <input type="hidden" name="business_ids[]" value="<?php echo $row_stock['businessid']; ?>">
+                                                        <img src="../<?php echo $item['product_img'] ?>" alt="<?php echo $item['product_name'] ?>" width="80">
+                                                    </td>
+                                                    <td>
+                                                        <span class="ml-2"><?php echo $item['product_name'] ?></span>
+                                                    </td>
+                                                    <td><?php echo number_format($item['product_price']) . ' vnđ' ?></td>
+                                                    <td>
 
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="gray_btn p-3" href="../user/HandleCart.php?action=xoaSP">Xóa tất cả sản
-                                    phẩm</a>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
+                                                        <form action="../user/HandleCart.php" method="post">
+                                                            <?php
+                                                            if ($item['product_quantity'] <= $row_stock['quantity']) {
+                                                            ?>
+                                                                <input type="number" name="product_quantity" id="" min="1" max="999" value="<?php echo $item['product_quantity'] ?>">
+                                                            <?php
+                                                            } else if ($item['product_quantity'] > $row_stock['quantity']) {
+                                                            ?>
+                                                                <input type="number" name="product_quantity" id="" min="1" max="999" value="<?php echo $row_stock['quantity'] ?>">
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                            <input type="hidden" name="product_id" value="<?php echo $item['product_id']; ?>">
+                                                            <input type="submit" name="submit-quantity" value="Cập nhật" class="btn btn-warning">
+                                                        </form>
+                                                    </td>
+                                                    <td><?php echo number_format($subtotal) . ' vnđ' ?></td>
+                                                    <td>
+                                                        <a href="../user/HandleCart.php?action=delete_product_id&id=<?php echo $item['product_id'] ?>" class="btn btn-danger">Xóa</a>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
 
-                            </td>
-                            <td>
-                                <h4>Tổng giá</h4>
-                            </td>
-                            <td>
-
-                                <h4><?php echo number_format($totalPrice) ?> VNĐ</h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-
-                        <tr class="shipping_area">
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                <h4 class="text-uppercase">Phí giao hàng</h4>
-
-                            </td>
-                            <td>
-                                <div class="shipping_box">
-                                    <ul class="list">
-                                        <li><a href="#">
-                                                <?php
-                                                if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                                                    $totalQuantity = 0;
-
-                                                    // Tính tổng số lượng của tất cả các sản phẩm trong giỏ hàng
-                                                    foreach ($_SESSION['cart'] as $item) {
-                                                        $totalQuantity += $item['quantity'];
-                                                    }
-
-                                                    // Xác định chi phí vận chuyển dựa trên tổng số lượng
-                                                    if ($totalQuantity >= 8) {
-                                                        echo 'Miễn phí giao hàng';
-                                                    } elseif ($totalQuantity <= 7 && $totalQuantity >= 4) {
-                                                        echo number_format(40000) . ' VNĐ';
-                                                    } elseif ($totalQuantity < 4 && $totalQuantity > 0) {
-                                                        echo number_format(80000) . ' VNĐ';
-                                                    }
-                                                }
-                                                ?>
-
-                                            </a></li>
-
-                                    </ul>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
 
                                 </div>
-                            </td>
-                        </tr>
-                        <tr class="out_button_area">
-                            <td>
+                            </div>
+                        </div>
 
-                            </td>
-                            <td>
+                    </div>
 
-                            </td>
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn mr-5" href="./Listcategory.php">Tiếp tục mua hàng</a>
-                                    <?php
-                                    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                                    ?>
-                                    <a class="primary-btn" href="../user/Checkout.php">Thanh toán</a>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>
+        <?php
+                }
+            }
+        } else {
+            echo '<div class="text-center text-uppercase m-5 text-danger">Không có sản phẩm trong giỏ hàng. Vui lòng mua hàng.</div>';
+        }
+        ?>
 
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <?php
+        if (!empty($_SESSION['cart'])) {
+        ?>
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="../user/HandleCart.php?action=xoaSP" class="btn btn-danger w-50 p-2 text-uppercase">Xóa tất cả</a>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-3">
+                    <a href="" class="btn btn-warning p-2 w-100 text-uppercase">Tiếp tục mua hàng</a>
+                </div>
+                <div class="col-md-2">
+                    <?php
+                    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+                    ?>
+                        <button onclick="checkoutSelectedProducts()" class="btn btn-success w-100 p-2 text-uppercase">Đặt hàng</button>
+                    <?php
+                    }
+                    ?>
+                </div>
             </div>
-        </div>
+        <?php
+        }
+        ?>
     </div>
 </section>
+
+<script>
+    function checkoutSelectedProducts() {
+        // Thêm logic xử lý khi nút "Thanh toán" được nhấn
+        var selectedProducts = document.querySelectorAll('input[name="selected_products[]"]:checked');
+
+        // Kiểm tra xem có sản phẩm được chọn hay không
+        if (selectedProducts.length === 0) {
+            alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
+            return; // Dừng hàm nếu không có sản phẩm được chọn
+        }
+
+        var selectedProductIds = Array.from(selectedProducts).map(item => item.value);
+
+        // Gửi danh sách sản phẩm được chọn đến trang xử lý thanh toán
+        // Thay đổi action và method của form theo đường dẫn và phương thức xử lý thanh toán của bạn
+        var checkoutForm = document.createElement('form');
+        checkoutForm.action = '../user/Checkout.php';
+        checkoutForm.method = 'post';
+
+        selectedProductIds.forEach(productId => {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'selected_product_cart[]';
+            input.value = productId;
+            checkoutForm.appendChild(input);
+
+            // Lấy businessId tương ứng với sản phẩm và thêm vào form
+            var businessIdInput = document.querySelector('input[name="business_ids[]"][value="' + productId + '"]');
+            if (businessIdInput) {
+                var businessId = businessIdInput.value;
+
+                var inputBusinessId = document.createElement('input');
+                inputBusinessId.type = 'hidden';
+                inputBusinessId.name = 'business_id_cart[' + productId + ']';
+                inputBusinessId.value = businessId;
+                checkoutForm.appendChild(inputBusinessId);
+            }
+        });
+
+        document.body.appendChild(checkoutForm);
+        checkoutForm.submit();
+    }
+</script>
+
 <!--================End Cart Area =================-->
 
 

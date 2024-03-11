@@ -10,38 +10,51 @@ if (isset($_POST['ConfirmCheckout'])) {
 	$phone = $_POST['phone'];
 	$address = $_POST['address'];
 	$method = $_POST['method'];
-	$total = $_SESSION['total'];
 	$status = 1;
 	$userid = $_SESSION['userid'];
 
-	/* -------------------------------------------------------------------------- */
-	/*                             hàm insert hóa đơn                             */
-	$randletter = chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)); // chạy ngẫu nhiên chữ
-	$randnumber = rand(0000000, 9999999); // chạy ngẫu nhiên số 
+	// Generate a unique order code
+	$randletter = chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90)) . chr(rand(65, 90));
+	$randnumber = rand(0000000, 9999999);
 	$ordercode = $randletter . $randnumber;
-	/* ----------------------------- insert in order ---------------------------- */
-	$sql_insert_order = "INSERT INTO orders (ordercode, total, shipaddress, status, userid, method) VALUES ('$ordercode' , '$total', '$address', '$status' , '$userid', '$method' )";
-	$result_insert_order = $conn->query($sql_insert_order);
-	$orderid = $conn->insert_id;
 
-	/* --------------------------- insert orderdetail --------------------------- */
-	foreach ($_SESSION['cart'] as $cart) {
-		$product_id = $cart['id'];
-		$quantity = $cart['quantity'];
-		$sql_insert_detail = "INSERT INTO orderdetails(quantityproduct, productid,orderid) VALUES ('$quantity' , '$product_id', '$orderid' )";
-		$result_insert_order_detail = $conn->query($sql_insert_detail);
-	}
+	// Insert order information using prepared statements
+	$sql_insert_order = "INSERT INTO orders (ordercode, shipaddress, status, userid, method) VALUES (?, ?, ?, ?, ?)";
+	$stmt_insert_order = $conn->prepare($sql_insert_order);
+	$stmt_insert_order->bind_param("ssiii", $ordercode, $address, $status, $userid, $method);
 
-	unset($_SESSION['cart']);
-	if ($result_insert_order_detail == TRUE) {
+	if ($stmt_insert_order->execute()) {
+		$orderid = $stmt_insert_order->insert_id;
+
+		// Insert order details using prepared statements
+		$sql_insert_detail = "INSERT INTO orderdetails(quantityproduct, productid, orderid, businessid) VALUES (?, ?, ?, ?)";
+		$stmt_insert_detail = $conn->prepare($sql_insert_detail);
+		$stmt_insert_detail->bind_param("iiii", $quantity, $productid, $orderid, $businessId);
+
+		foreach ($_SESSION['cart'] as $businessId => $products) {
+			foreach ($products as $productid => $productDetails) {
+				$quantity = $productDetails['product_quantity'];
+				$productid = $productDetails['product_id'];
+
+				$stmt_insert_detail->execute();
+			}
+		}
+
+		unset($_SESSION['cart']);
+
 		echo "<script  language=javascript>
-            alert('Đặt hàng thành công! Chúng tôi sẽ giao hàng cho bạn sớm nhất');
-        </script>";
+                 alert('Đặt hàng thành công! Chúng tôi sẽ giao hàng cho bạn sớm nhất');
+             </script>";
 		echo "<script language=javascript>
-			window.location = '../user/Thank.php';
-		</script>";
+                 window.location = '../user/Thank.php';
+             </script>";
+	} else {
+		echo "<script  language=javascript>
+                 alert('Có lỗi xảy ra khi xử lý đặt hàng. Vui lòng thử lại sau.');
+             </script>";
 	}
 
-	/* -------------------------------------------------------------------------- */
+	$stmt_insert_order->close();
+	$stmt_insert_detail->close();
 }
 ?>

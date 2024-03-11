@@ -78,68 +78,79 @@ include("../user/TemplateUS/NavbarUS.php");
                     </form>
 
                 </div>
+
                 <div class="col-lg-4">
                     <div class="order_box">
-                        <h2 class="text-uppercase">Hóa đơn của bạn</h2>
+                        <h2>Hóa đơn của bạn</h2>
                         <ul class="list">
-                            <li><a href="#">Sản phẩm<span>Tổng</span></a></li>
                             <?php
-                            if (isset($_SESSION['cart'])) {
-                                $subtotal = 0;
-                                foreach ($_SESSION['cart'] as $itemCart) {
-                                    $subtotal += $itemCart['quantity'] * $itemCart['price']
+                            if (isset($_POST['selected_product_cart']) && !empty($_POST['selected_product_cart'])) {
+                                $selectedProductIds = $_POST['selected_product_cart'];
 
+                                foreach ($selectedProductIds as $productId) {
+                                    // Check if the product is in the cart
+                                    foreach ($_SESSION['cart'] as $businessId => $items) {
+                                        $productDetail = getProductDetailsFromCart($productId, $businessId, $conn);
+
+                                        if ($productDetail) {
                             ?>
-                                    <li><a href="#"><?php echo $itemCart['name'] ?> <span class="middle">x <?php echo $itemCart['quantity'] ?></span> <span class="last"><?php echo number_format($itemCart['total']) . ' VNĐ' ?></span></a></li>
+                                            <li><a href="#" style="color: #000;">Sản phẩm từ: <?php echo $productDetail['business_name'] ?> <span>Tổng</span></a></li>
+                                            <li>
+                                                <a href="#">
+                                                    <?php echo $productDetail['product_name'] ?>
+                                                    <span class="middle">x <?php echo $productDetail['product_quantity'] ?></span>
+                                                    <span class="last"><?php echo number_format($productDetail['product_price']) ?> vnđ</span>
+                                                </a>
+                                            </li>
                             <?php
+                                        }
+                                    }
                                 }
                             }
                             ?>
                         </ul>
-                        <ul class="list list_2">
-                            <li><a href="#">Tổng hóa đơn:<span><?php echo number_format($subtotal) . ' VNĐ' ?></span></a></li>
-                            <li><a href="#">Phí giao hàng:<span>
-                                        <?php
-                                        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                                            $totalQuantity = 0;
-                                            $total = $subtotal; // Bắt đầu với tổng số lượng
-
-                                            // Tính tổng số lượng của tất cả các sản phẩm trong giỏ hàng
-                                            foreach ($_SESSION['cart'] as $item) {
-                                                $totalQuantity += $item['quantity'];
-                                            }
-
-                                            // Xác định chi phí vận chuyển dựa trên tổng số lượng
-                                            if ($totalQuantity >= 8) {
-                                                echo 'Miễn phí giao hàng';
-                                            } elseif ($totalQuantity <= 7 && $totalQuantity >= 4) {
-                                                $shippingFee = 40000;
-                                                echo number_format($shippingFee) . ' VNĐ';
-                                                $total += $shippingFee; // Cộng thêm phí giao hàng vào tổng
-                                            } elseif ($totalQuantity < 4 && $totalQuantity > 0) {
-                                                $shippingFee = 80000;
-                                                echo number_format($shippingFee) . ' VNĐ';
-                                                $total += $shippingFee; // Cộng thêm phí giao hàng vào tổng
-                                            }
-                                        }
-
-                                        $_SESSION['total'] = $total;
-                                        ?>
-                                    </span></a></li>
-                            <li><a href="#">Tổng:<span><?php echo number_format($total) . ' VNĐ' ?></span></a></li>
-                        </ul>
-                        <!-- <div class="creat_account">
-                            <input type="checkbox" id="f-option4" name="selector">
-                            <label for="f-option4">Vui lòng đọc</label>
-                            <a href="#">Chính sách & dịch vụ *</a>
-                        </div> -->
                     </div>
                 </div>
+
+
+
+
             </div>
         </div>
     </div>
 </section>
 <!--================End Checkout Area =================-->
+<?php
+function getProductDetailsFromCart($productId, $businessId, $conn)
+{
+    // Kiểm tra xem giỏ hàng có tồn tại không và có sản phẩm được chọn không
+    if (isset($_SESSION['cart'][$businessId]) && !empty($_SESSION['cart'][$businessId])) {
+        foreach ($_SESSION['cart'][$businessId] as $item) {
+            if ($item['product_id'] == $productId) {
+                // lấy tên thông tin doanh nghiệp
+                $item['business_name'] = getBusinessNameById($businessId, $conn);
+                // Trả về thông tin sản phẩm từ giỏ hàng đã chọn
+                return $item;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+function getBusinessNameById($businessId, $conn)
+{
+    $sql_select_business = "SELECT businessname FROM businesses WHERE businessid = '" . $businessId . "'";
+    $result_select_business = $conn->query($sql_select_business);
+
+    if ($result_select_business) {
+        $row_business = $result_select_business->fetch_assoc();
+        return isset($row_business['businessname']) ? $row_business['businessname'] : 'Không xác định';
+    }
+}
+?>
+
 
 <?php
 include("../user/TemplateUS/FooterUS.php")

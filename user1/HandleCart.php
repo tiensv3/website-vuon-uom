@@ -44,9 +44,9 @@ if (!isset($_SESSION['account'])) {
             $product_price = $_POST['product_price'];
             $product_sale = $_POST['product_sale'];
 
-            if (isset($product_sale) > 0) {
+            if ($product_sale) {
                 addToCart($product_id, $product_name, $product_quantity, $product_sale);
-            } else {
+            } else if (!$product_sale) {
                 addToCart($product_id, $product_name, $product_quantity, $product_price);
             }
             // Thêm sản phẩm vào giỏ hàng
@@ -55,6 +55,28 @@ if (!isset($_SESSION['account'])) {
     }
 }
 
+?>
+
+
+<!-- update quantity in cart -->
+<?php
+if (isset($_POST['submit-quantity'])) {
+    $product_id = $_POST['product_id'];
+    $new_quantity = $_POST['qty'];
+
+    if (!empty($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $key => $value) {
+            if ($value['id'] == $product_id) {
+                // Update the quantity
+                $_SESSION['cart'][$key]['quantity'] = $new_quantity;
+
+                // Recalculate the total
+                $_SESSION['cart'][$key]['total'] = $new_quantity * $_SESSION['cart'][$key]['price'];
+            }
+        }
+    }
+    header("Location: ./cart.php");
+}
 ?>
 
 

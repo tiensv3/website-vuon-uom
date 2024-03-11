@@ -102,7 +102,7 @@ include("../user/TemplateUS/NavbarUS.php");
                                         <?php
                                         if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                                             $totalQuantity = 0;
-                                            $alltotal = $subtotal; // Bắt đầu với tổng số lượng
+                                            $total = $subtotal; // Bắt đầu với tổng số lượng
 
                                             // Tính tổng số lượng của tất cả các sản phẩm trong giỏ hàng
                                             foreach ($_SESSION['cart'] as $item) {
@@ -115,18 +115,18 @@ include("../user/TemplateUS/NavbarUS.php");
                                             } elseif ($totalQuantity <= 7 && $totalQuantity >= 4) {
                                                 $shippingFee = 40000;
                                                 echo number_format($shippingFee) . ' VNĐ';
-                                                $alltotal += $shippingFee; // Cộng thêm phí giao hàng vào tổng
+                                                $total += $shippingFee; // Cộng thêm phí giao hàng vào tổng
                                             } elseif ($totalQuantity < 4 && $totalQuantity > 0) {
                                                 $shippingFee = 80000;
                                                 echo number_format($shippingFee) . ' VNĐ';
-                                                $alltotal += $shippingFee; // Cộng thêm phí giao hàng vào tổng
+                                                $total += $shippingFee; // Cộng thêm phí giao hàng vào tổng
                                             }
                                         }
 
-                                        $_SESSION['alltotal'] = $alltotal;
+                                        $_SESSION['total'] = $total;
                                         ?>
                                     </span></a></li>
-                            <li><a href="#">Tổng:<span><?php echo number_format($alltotal) . ' VNĐ' ?></span></a></li>
+                            <li><a href="#">Tổng:<span><?php echo number_format($total) . ' VNĐ' ?></span></a></li>
                         </ul>
                         <!-- <div class="creat_account">
                             <input type="checkbox" id="f-option4" name="selector">

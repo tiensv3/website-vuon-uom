@@ -26,6 +26,7 @@
                         </li> -->
 
                         <li class="nav-item"><a class="nav-link" href="../../user/Listcategory.php">Sản phẩm</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../../user/.php">Dịch vụ</a></li>
                         <li class="nav-item"><a class="nav-link" href="../user/Contact.php">Liên hệ</a></li>
                         <li class="nav-item submenu dropdown">
                             <?php

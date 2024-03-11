@@ -87,7 +87,8 @@ include("../user/TemplateUS/NavbarUS.php");
                                 ?>
                             </div>
                             <ul class="list mt-3">
-                                <li><a class="active" href="#"><span>Thương hiệu</span> : <?php echo $row['businessname'] ?></a></li>
+                                <li><a class="active" href="#"><span>Thương hiệu</span> : <?php echo $row['businessname'] ?></a>
+                                </li>
                                 <li><a href="#"><span>Số lượng</span> : <?php echo $row['quantity'] . ' cái' ?></a></li>
                             </ul>
                             <p class="text-justify"><?php echo $row['shortdesc'] ?></p>
@@ -97,10 +98,12 @@ include("../user/TemplateUS/NavbarUS.php");
                                     <input type="hidden" name="product_name" value="<?php echo $row['productname'] ?>">
                                     <input type="hidden" name="product_price" value="<?php echo $row['price'] ?>">
                                     <input type="hidden" name="product_sale" value="<?php echo $row['sale'] ?>">
+                                    <input type="hidden" name="businessid" value="<?php echo $row['businessid'] ?>">
+                                    <input type="hidden" name="product_img" value="<?php echo $row['thumbnail'] ?>">
                                     <label for="qty">Số lượng:</label>
-                                    <input type="number" name="product_quantity" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                                    <input type="number" name="product_quantity" id="sst" value="1" title="Quantity:" class="input-text qty p-3">
                                     <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                                 </div>
                                 <div class="card_area d-flex align-items-center">
 
@@ -157,8 +160,10 @@ include("../user/TemplateUS/NavbarUS.php");
                                 <a class="reply_btn" href="#">Reply</a>
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea
                             commodo</p>
                     </div>
                     <div class="review_item reply">
@@ -172,8 +177,10 @@ include("../user/TemplateUS/NavbarUS.php");
                                 <a class="reply_btn" href="#">Reply</a>
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea
                             commodo</p>
                     </div>
                     <div class="review_item">
@@ -187,8 +194,10 @@ include("../user/TemplateUS/NavbarUS.php");
                                 <a class="reply_btn" href="#">Reply</a>
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea
                             commodo</p>
                     </div>
                 </div>
@@ -264,8 +273,10 @@ include("../user/TemplateUS/NavbarUS.php");
                                 <i class="fa fa-star"></i>
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea
                             commodo</p>
                     </div>
                     <div class="review_item">
@@ -282,8 +293,10 @@ include("../user/TemplateUS/NavbarUS.php");
                                 <i class="fa fa-star"></i>
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea
                             commodo</p>
                     </div>
                     <div class="review_item">
@@ -300,8 +313,10 @@ include("../user/TemplateUS/NavbarUS.php");
                                 <i class="fa fa-star"></i>
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea
                             commodo</p>
                     </div>
                 </div>
@@ -359,7 +374,8 @@ include("../user/TemplateUS/NavbarUS.php");
             <div class="col-lg-6 text-center">
                 <div class="section-title">
                     <h1>Deals of the Week</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore
                         magna aliqua.</p>
                 </div>
             </div>

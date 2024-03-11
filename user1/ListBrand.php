@@ -81,30 +81,18 @@ include("../user/TemplateUS/NavbarUS.php");
 										<div class="prd-bottom">
 											<div class="row">
 												<div class="col-12 ">
-													<?php
-													if ($product_All_id_business['quantity'] > 0) {
-													?>
-														<form action="../user/HandleCart.php" method="post">
-															<input type="hidden" name="product_id" value="<?php echo $product_All_id_business['productid'] ?>">
-															<input type="hidden" name="product_name" value="<?php echo $product_All_id_business['productname'] ?>">
-															<input type="hidden" name="product_price" value="<?php echo $product_All_id_business['price'] ?>">
-															<input type="hidden" name="product_sale" value="<?php echo $product_All_id_business['sale'] ?>">
-															<input type="hidden" name="businessid" value="<?php echo $product_All_id_business['businessid'] ?>">
-															<input type="hidden" name="product_img" value="<?php echo $product_All_id_business['thumbnail'] ?>">
-															<input type="hidden" name="product_quantity" id="" value="1">
+													<form action="../user/HandleCart.php" method="post">
+														<input type="hidden" name="product_id" value="<?php echo $product_All_id_business['productid'] ?>">
+														<input type="hidden" name="product_name" value="<?php echo $product_All_id_business['productname'] ?>">
+														<input type="hidden" name="product_price" value="<?php echo $product_All_id_business['price'] ?>">
+														<input type="hidden" name="product_sale" value="<?php echo $product_All_id_business['sale'] ?>">
+														<input type="hidden" name="product_quantity" id="" value="1">
 
-															<input type="submit" name="addtocart" class="btn btn-success w-100 mb-2" value="Mua hàng">
-														</form>
-													<?php
-													} else if ($product_All_id_business['quantity'] <= 0) {
-													?>
-														<a href="" class="btn btn-danger w-100 mb-2">Hết hàng</a>
-													<?php
-													}
-													?>
+														<input type="submit" name="addtocart" class="btn btn-primary w-100 mb-2" value="Thêm vào giỏ hàng">
+													</form>
 												</div>
 											</div>
-											<div class="row m-2	">
+											<div class="row">
 												<div class="col-md-12">
 													<a href="" class="social-info">
 														<span class="lnr lnr-heart"></span>

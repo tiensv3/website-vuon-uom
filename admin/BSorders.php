@@ -20,19 +20,23 @@ include("./Template/sidebarAD.php");
         <div class="col-lg-12">
             <?php
             $businessid = $_SESSION['businessid'];
-            $sql_select_package = "SELECT * FROM orders ";
-            $result_select_package = $conn->query($sql_select_package);
+            $sql_select_order = "SELECT orders.*, users.email, users.fullname, users.phone
+            FROM orders INNER JOIN users ON orders.userid = users.userid
+            INNER JOIN orderdetails ON ON
+             WHERE orders.businessid = $businessid ";
+            $result_select_orders = $conn->query($sql_select_order);
 
             ?>
             <table class="table">
                 <thead>
                     <tr class="mt-5 bg-primary text-white">
                         <th scope="col">STT</th>
-                        <th scope="col">Tên gói</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Số danh mục</th>
-                        <th scope="col">Số sản phẩm</th>
-                        <th scope="col">Ngày bắt đầu</th>
+                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">Họ tên khách hàng</th>
+                        <th scope="col">Địa chỉ nhận hàng</th>
+                        <th scope="col">Phương thức thanh toán</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Ngày đặt hàng</th>
                         <th scope="col">Ngày kết thúc</th>
                         <th scope="col">Trạng thái</th>
                     </tr>
@@ -40,12 +44,12 @@ include("./Template/sidebarAD.php");
                 <tbody>
                     <?php
                     $i = 0;
-                    while ($row = mysqli_fetch_assoc($result_select_package)) {
+                    while ($row = mysqli_fetch_assoc($result_select_orders)) {
                         $i++;
                     ?>
                         <tr>
                             <td><?php echo $i ?></td>
-                            <td><?php echo $row['name'] ?></td>
+                            <td><?php echo $row['ordercode'] ?></td>
                             <td>
                                 <?php echo number_format($row['price']) ?> Đồng
                             </td>
